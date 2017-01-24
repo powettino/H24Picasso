@@ -8,10 +8,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.yeapp.h24picasso.ChangeH24">
+    tools:context="com.yeapp.h24picasso.activity.ChangeH24">
 
-    <TextView
+    <Button
+        android:text="@string/stopSpinButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="165dp"
+        android:id="@+id/stopSpinButton"
+        android:onClick=""/>
+
+    <Button
+        android:text="Log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopSpinButton"
+        android:layout_alignStart="@+id/stopSpinButton"
+        android:layout_marginTop="89dp"
+        android:id="@+id/logButton"
+        android:layout_alignEnd="@+id/stopSpinButton" />
+
 </RelativeLayout>

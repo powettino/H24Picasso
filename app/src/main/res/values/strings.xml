@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">H24Picasso</string>
+    <string name="stopSpinButton">StopSpin</string>
 </resources>
