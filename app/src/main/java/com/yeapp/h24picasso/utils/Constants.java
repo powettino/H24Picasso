@@ -8,6 +8,7 @@ public class Constants {
 
     public static final String loginRespMessage = "login_response_message";
     public static final String loginResult = "login_result";
+    public static final String loginRespCode = "login_response_code";
 
     public static class Connection{
         public static final String USER ="800858446";

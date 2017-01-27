@@ -46,7 +46,7 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
         logButton.setOnClickListener(this);
 
         pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
-        pDiag.show("Connecting", "Connecting to \"Gestionenumeroverde\"", 10000);
+        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 10000);
         new AsyncTask<Void, Void, Bundle>(){
 
             @Override
@@ -55,7 +55,7 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
             }
 
             @Override
-            protected void onPostExecute(Bundle s) {
+            protected void onPostExecute(final Bundle s) {
                 pDiag.dismiss();
                 if (s.getBoolean(Constants.loginResult)) {
                     Log.d("Background", "Loggato");
@@ -68,8 +68,10 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
                             .setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
                                 public void onDismiss(DialogInterface dialogInterface) {
-                                    Intent login = new Intent(getBaseContext(), LoginActivity.class);
-                                 startActivityForResult(login,CODE_FOR_LOGIN);
+                                    if(s.getInt(Constants.loginRespCode)==200) {
+                                        Intent login = new Intent(getBaseContext(), LoginActivity.class);
+                                        startActivityForResult(login, CODE_FOR_LOGIN);
+                                    }
                                 }
                             })
                             .create()

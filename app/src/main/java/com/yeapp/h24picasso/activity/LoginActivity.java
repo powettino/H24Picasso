@@ -1,6 +1,10 @@
 package com.yeapp.h24picasso.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.yeapp.h24picasso.R;
+import com.yeapp.h24picasso.utils.Constants;
 import com.yeapp.h24picasso.utils.ProgressDialogWithTimeout;
+import com.yeapp.h24picasso.utils.WebOperation;
 
 /**
  * Created by Iacopo Peri on 26/01/17 01:34.
@@ -45,25 +51,38 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         _loginButton.setEnabled(false);
 
-        ProgressDialogWithTimeout progressDialog = new ProgressDialogWithTimeout(LoginActivity.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show(10000);
+        final ProgressDialogWithTimeout pDiag = new ProgressDialogWithTimeout(LoginActivity.this);
+        pDiag.setIndeterminate(true);
+        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 10000);
 
         String user = _userText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
+        new AsyncTask<String, Void, Bundle>(){
 
-//        new android.os.Handler().postDelayed(
-//                new Runnable() {
-//                    public void run() {
-//                        // On complete call either onLoginSuccess or onLoginFailed
-//                        onLoginSuccess();
-//                        // onLoginFailed();
-//                        progressDialog.dismiss();
-//                    }
-//                }, 3000);
+            @Override
+            protected Bundle doInBackground(String... strings) {
+                return WebOperation.TryLogin(strings[0], strings[1]);
+            }
+
+            @Override
+            protected void onPostExecute(final Bundle s) {
+                pDiag.dismiss();
+                if (s.getBoolean(Constants.loginResult)) {
+                    Log.d("Background", "Loggato");
+                    onLoginSuccess();
+                } else {
+                    _loginButton.setEnabled(true);
+                    Log.d("Background", "Stringa " + s + ", errore");
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("Login Error")
+                            .setMessage(s.getString(Constants.loginRespMessage))
+                            .setCancelable(true)
+                            .create()
+                            .show();
+                }
+            }
+        }.execute(user, password);
     }
 
     @Override
@@ -89,14 +108,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String password = _passwordText.getText().toString();
 
         if (user.isEmpty()) {
-            _userText.setError("enter a valid user");
+            _userText.setError("Enter a valid user");
             valid = false;
         } else {
             _userText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            _passwordText.setError("Between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
             _passwordText.setError(null);

@@ -62,6 +62,7 @@ public class WebOperation {
             res = res.substring(res.indexOf(startSub)+startSub.length(),res.indexOf(endSub));
             Log.d("RES", "tringa " + res);
             bundle.putBoolean(Constants.loginResult, res.contains("correttamente") ? true : false);
+            bundle.putInt(Constants.loginRespCode, http.getResponseCode());
             bundle.putString(Constants.loginRespMessage, res);
         } catch (IOException e) {
             Log.d("Log prova", "errore quando provo ad aprire la cnnession");
