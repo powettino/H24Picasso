@@ -1,6 +1,7 @@
 package com.yeapp.h24picasso.utils;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -10,14 +11,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.CookieManager;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Iacopo Peri on 26/01/17 01:56.
  */
 
 public class WebOperation {
+
+    static CookieManager msCookieManager = new CookieManager();
+    static final String COOKIES_HEADER = "Set-Cookie";
+    static final String COOKIE = "Cookie";
 
     public static Bundle TryLogin(String user, String pass){
         HttpURLConnection http;
@@ -30,6 +39,8 @@ public class WebOperation {
 //                    http.setChunkedStreamingMode(0);
             http.setRequestMethod("GET");
 
+            addCookies(http);
+
             OutputStream os = http.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             writer.write(postData);
@@ -40,7 +51,7 @@ public class WebOperation {
             InputStream is = null;
             String startSub="";
             String endSub="";
-            if (http.getResponseCode() != 200) {
+            if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 is = http.getErrorStream();
                 startSub="<p>";
                 endSub="<br /></p>";
@@ -49,6 +60,7 @@ public class WebOperation {
                 is = http.getInputStream();
                 startSub="<span class=\"nero15b\">";
                 endSub="</span>";
+                extractCookies(http);
             }
             BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             StringBuffer sb = new StringBuffer();
@@ -69,5 +81,27 @@ public class WebOperation {
             e.printStackTrace();
         }
         return bundle;
+    }
+
+    private static void extractCookies(HttpURLConnection http) {
+        Map<String, List<String>> headerFields = http.getHeaderFields();
+        List<String> cookiesHeader = headerFields.get(COOKIES_HEADER);
+        if (cookiesHeader != null) {
+            for (String cookie : cookiesHeader) {
+                msCookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
+                Log.d("WebOperation","Saving cookie: "+HttpCookie.parse(cookie).get(0).toString());
+            }
+        }
+    }
+
+    public static void addCookies(HttpURLConnection http){
+        if (msCookieManager.getCookieStore().getCookies().size() > 0) {
+            http.setRequestProperty(COOKIE ,TextUtils.join(";", msCookieManager.getCookieStore().getCookies()));
+            Log.d("WebOperation", "Sending cookie: "+msCookieManager.getCookieStore().getCookies().toString());
+        }
+    }
+
+    public static CookieManager getMsCookieManager() {
+        return msCookieManager;
     }
 }
