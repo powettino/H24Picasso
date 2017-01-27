@@ -37,26 +37,32 @@ public class ProgressDialogWithTimeout extends ProgressDialog {
     }
 
     public void show(String title, String msg, long millis){
-        if (!title.isEmpty()) {
-            pDiag.setTitle(title);
-        }
-        pDiag.setMessage(msg);
-        pDiag.setIndeterminate(false);
-        pDiag.setCancelable(false);
-        pDiag.show();
+        if(pDiag!=null && !pDiag.isShowing()) {
+            if (!title.isEmpty()) {
+                pDiag.setTitle(title);
+            }
+            pDiag.setMessage(msg);
+            pDiag.setIndeterminate(false);
+            pDiag.setCancelable(false);
+            pDiag.show();
 
-        handler.postDelayed(new ExitTask(), millis);
+            handler.postDelayed(new ExitTask(), millis);
+        }
     }
 
     public void show(long millis){
-        pDiag.show();
-        handler.postDelayed(new ExitTask(), millis);
+        if(pDiag!=null && !pDiag.isShowing()) {
+            pDiag.show();
+            handler.postDelayed(new ExitTask(), millis);
+        }
     }
 
     @Override
     public void dismiss() {
-        handler.removeCallbacksAndMessages(null);
-        pDiag.dismiss();
+        if(pDiag!=null && pDiag.isShowing()) {
+            handler.removeCallbacksAndMessages(null);
+            pDiag.dismiss();
+        }
     }
 
     private class ExitTask implements Runnable {
@@ -68,7 +74,8 @@ public class ProgressDialogWithTimeout extends ProgressDialog {
                 pDiag.dismiss();
             }
             new AlertDialog.Builder(currentContext)
-                    .setTitle("Error")
+                    .setTitle("Generic Error")
+                    .setMessage("Timeout on request")
                     .setCancelable(true)
                     .create()
                     .show();
