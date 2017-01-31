@@ -33,6 +33,5 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:23.3.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/jsoup-1.10.2-sources.jar')
-    compile files('libs/jsoup-1.10.2-javadoc.jar')
+    compile files('libs/jsoup-1.10.2.jar')
 }

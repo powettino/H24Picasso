@@ -29,7 +29,7 @@ public class WebOperation {
     static final String COOKIES_HEADER = "Set-Cookie";
     static final String COOKIE = "Cookie";
 
-    public static String GetPanel() {
+    public static String getPanel() {
         HttpURLConnection http;
         try {
             http = (HttpURLConnection) new URL(Constants.Connection.PANEL_URL).openConnection();
@@ -60,7 +60,7 @@ public class WebOperation {
         return null;
     }
 
-    public static Bundle TryLogin(String user, String pass){
+    public static Bundle tryLogin(String user, String pass){
         HttpURLConnection http;
         Bundle bundle = new Bundle();
         try {

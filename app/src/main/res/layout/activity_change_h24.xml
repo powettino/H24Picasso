@@ -10,24 +10,81 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.yeapp.h24picasso.activity.ChangeH24">
 
-    <Button
-        android:text="@string/stopSpinButton"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Lunedi'"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp"
-        android:id="@+id/stopSpinButton"
-        android:onClick=""/>
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="33dp"
+        android:id="@+id/textLunedi" />
 
-    <Button
-        android:text="Log"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/stopSpinButton"
-        android:layout_alignStart="@+id/stopSpinButton"
-        android:layout_marginTop="89dp"
-        android:id="@+id/logButton"
-        android:layout_alignEnd="@+id/stopSpinButton" />
+        android:inputType="textPersonName"
+        android:text="Martedi'"
+        android:layout_marginTop="44dp"
+        android:id="@+id/textMartedi"
+        android:layout_below="@+id/textLunedi"
+        android:layout_alignStart="@+id/textLunedi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Mercoledi"
+        android:id="@+id/textMercoledi"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/textMartedi"
+        android:layout_alignStart="@+id/textMartedi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Giovedi"
+        android:id="@+id/textGiovedi"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/textMercoledi"
+        android:layout_alignStart="@+id/textMercoledi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Venerdi"
+        android:id="@+id/textVenerdi"
+        android:layout_marginTop="44dp"
+        android:layout_alignStart="@+id/textGiovedi"
+        android:layout_below="@+id/textGiovedi"
+         />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Base"
+        android:id="@+id/textBase"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/textVenerdi"
+        android:layout_marginTop="44dp"
+        android:layout_alignStart="@+id/textVenerdi" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="NumLunedi1"
+        android:id="@+id/textNumLun1"
+        android:layout_above="@+id/textMartedi"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
+
+
 
 </RelativeLayout>

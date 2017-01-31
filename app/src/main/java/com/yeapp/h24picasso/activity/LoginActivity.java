@@ -2,8 +2,6 @@ package com.yeapp.h24picasso.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,7 +60,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             @Override
             protected Bundle doInBackground(String... strings) {
-                return WebOperation.TryLogin(strings[0], strings[1]);
+                return WebOperation.tryLogin(strings[0], strings[1]);
             }
 
             @Override

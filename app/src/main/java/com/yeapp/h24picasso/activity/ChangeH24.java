@@ -1,7 +1,6 @@
 package com.yeapp.h24picasso.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,21 +14,13 @@ import com.yeapp.h24picasso.R;
 import com.yeapp.h24picasso.utils.WebOperation;
 import com.yeapp.h24picasso.utils.Constants;
 import com.yeapp.h24picasso.utils.ProgressDialogWithTimeout;
-import com.yeapp.h24picasso.utils.XmlHandler;
+import com.yeapp.h24picasso.utils.GeneralUtils;
 
-import org.xml.sax.SAXException;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URL;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
+import java.util.HashMap;
 
 public class ChangeH24 extends Activity implements View.OnClickListener{
 
@@ -60,7 +51,7 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
 
             @Override
             protected Bundle doInBackground(Void... strings) {
-                return WebOperation.TryLogin(Constants.Connection.USER, Constants.Connection.PWD);
+                return WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
             }
 
             @Override
@@ -120,22 +111,16 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
         @Override
         protected String doInBackground(Void... strings) {
             Log.d("PANEL", "Lancio la ricerca dei campi");
-            return WebOperation.GetPanel();
+            return WebOperation.getPanel();
         }
 
         @Override
         protected void onPostExecute(String s) {
             pDiag.dismiss();
             Log.d("PANEL", "ok");
-            try {
-                XmlHandler xml = XmlHandler.getInstance();
-//                xml.parsePanelResponse(s);
-                xml.pp(s);
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-
-            }
-
+            Elements listCoppie = GeneralUtils.getElementsList(s, "tr[class='nero12']");
+            HashMap<String, String> listGiorni = GeneralUtils.getDaysNames(listCoppie, "td");
+            Log.d("PANEL", "Risultato ottenuto");
         }
     }
 }
