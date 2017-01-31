@@ -15,6 +15,10 @@ import com.yeapp.h24picasso.R;
 import com.yeapp.h24picasso.utils.WebOperation;
 import com.yeapp.h24picasso.utils.Constants;
 import com.yeapp.h24picasso.utils.ProgressDialogWithTimeout;
+import com.yeapp.h24picasso.utils.XmlHandler;
+
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,6 +27,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 
 public class ChangeH24 extends Activity implements View.OnClickListener{
 
@@ -33,6 +40,8 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
     private Button logButton;
 
     HttpURLConnection http;
+
+    GetPanelTask gpt = new GetPanelTask();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +65,12 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
 
             @Override
             protected void onPostExecute(final Bundle s) {
-                pDiag.dismiss();
                 if (s.getBoolean(Constants.loginResult)) {
                     Log.d("Background", "Loggato");
+                    gpt.execute();
                 } else {
                     Log.d("Background", "Stringa " + s + ", errore");
+                    pDiag.dismiss();
                     new AlertDialog.Builder(ChangeH24.this)
                             .setTitle("Login Error")
                             .setMessage(s.getString(Constants.loginRespMessage))
@@ -94,6 +104,38 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
             }
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == CODE_FOR_LOGIN) {
+            gpt.execute();
+        }
+    }
+
+    private class GetPanelTask extends AsyncTask<Void, Void, String>{
+
+        @Override
+        protected String doInBackground(Void... strings) {
+            Log.d("PANEL", "Lancio la ricerca dei campi");
+            return WebOperation.GetPanel();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            pDiag.dismiss();
+            Log.d("PANEL", "ok");
+            try {
+                XmlHandler xml = XmlHandler.getInstance();
+//                xml.parsePanelResponse(s);
+                xml.pp(s);
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+
+            }
+
         }
     }
 }

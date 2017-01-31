@@ -12,8 +12,9 @@ public class Constants {
 
     public static class Connection{
         public static final String USER ="800858446";
-        public static final String PWD ="m4j3i9r";
-        public static final String URL ="http://www.gestionenumeroverde.it/np_pub/login.php";
+        public static final String PWD ="m4j3i9r9";
+        public static final String CONNECTION_URL ="http://www.gestionenumeroverde.it/np_pub/login.php";
+        public static final String PANEL_URL="http://www.gestionenumeroverde.it/np_pub/home.php";
         public static String POSTDATA = "login=@USER@&pass=@PASS@&tipo=0&button=Entra";
     }
 }

@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -28,12 +29,43 @@ public class WebOperation {
     static final String COOKIES_HEADER = "Set-Cookie";
     static final String COOKIE = "Cookie";
 
+    public static String GetPanel() {
+        HttpURLConnection http;
+        try {
+            http = (HttpURLConnection) new URL(Constants.Connection.PANEL_URL).openConnection();
+            http.setDoOutput(true);
+            http.setFixedLengthStreamingMode(0);
+            http.setRequestMethod("GET");
+            addCookies(http);
+
+            InputStream is = null;
+            if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                is = http.getErrorStream();
+            } else {
+                is = http.getInputStream();
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            StringBuffer sb = new StringBuffer();
+            String inputLine;
+            while ((inputLine = br.readLine()) != null) {
+                sb.append(inputLine);
+            }
+            br.close();
+            Log.d("RES", "Completo " + sb.toString());
+            String res = sb.toString();
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Bundle TryLogin(String user, String pass){
         HttpURLConnection http;
         Bundle bundle = new Bundle();
         try {
             String postData = Constants.Connection.POSTDATA.replace("@USER@", user).replace("@PASS@", pass);
-            http = (HttpURLConnection) new URL(Constants.Connection.URL).openConnection();
+            http = (HttpURLConnection) new URL(Constants.Connection.CONNECTION_URL).openConnection();
             http.setDoOutput(true);
             http.setFixedLengthStreamingMode(postData.length());
 //                    http.setChunkedStreamingMode(0);
@@ -94,14 +126,14 @@ public class WebOperation {
         }
     }
 
-    public static void addCookies(HttpURLConnection http){
+    private static void addCookies(HttpURLConnection http){
         if (msCookieManager.getCookieStore().getCookies().size() > 0) {
             http.setRequestProperty(COOKIE ,TextUtils.join(";", msCookieManager.getCookieStore().getCookies()));
             Log.d("WebOperation", "Sending cookie: "+msCookieManager.getCookieStore().getCookies().toString());
         }
     }
 
-    public static CookieManager getMsCookieManager() {
+    private static CookieManager getMsCookieManager() {
         return msCookieManager;
     }
 }
