@@ -17,4 +17,18 @@ public class Constants {
         public static final String PANEL_URL="http://www.gestionenumeroverde.it/np_pub/home.php";
         public static String POSTDATA = "login=@USER@&pass=@PASS@&tipo=0&button=Entra";
     }
+
+    public enum Numeri{
+        IACOPO ("3475006206"),
+        MASSIMO("3386960076"),
+        NICOLETTA("3466643068"),
+        DAVIDE("3402787706"),
+        CARMELO("3386548676"),
+        UMBERTO("3442383570"),
+        ANDREA ("3387085389");
+
+
+        Numeri(String num) {
+        }
+    }
 }

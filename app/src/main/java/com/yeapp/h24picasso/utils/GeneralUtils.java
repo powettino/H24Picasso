@@ -1,15 +1,14 @@
 package com.yeapp.h24picasso.utils;
 
+import android.util.Pair;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Iacopo Peri on 30/01/17 21:42.
@@ -35,12 +34,27 @@ public class GeneralUtils {
         return list;
     }
 
-    public static HashMap<String, String> getDaysNames(Elements list, String subElement){
-        HashMap<String, String> hash = new HashMap<String, String>();
+    public static ArrayList<Pair<String, ArrayList<String>>> getDaysNames(Elements list, String subElement, String separator){
+        ArrayList<Pair<String, ArrayList<String>>> coppie = new ArrayList<>();
         for(Element el : list){
             Elements listTd = el.select(subElement);
-            hash.put(listTd.get(1).text(), listTd.get(0).text());
+            ArrayList<String> numbers = new ArrayList<String>();
+            if(!separator.isEmpty()){
+                String temp = listTd.get(0).html();
+                String[] separated = temp.split(separator);
+                for (String s : separated) {
+                    s = s.replace("+39","");
+                    s.trim();
+                    numbers.add(s);
+                }
+                for(int i=numbers.size()-1;i<3;i++){
+                    numbers.add("");
+                }
+            }else{
+                numbers.add(listTd.get(0).text());
+            }
+            coppie.add(new Pair<String, ArrayList<String>>(listTd.get(1).text(), numbers));
         }
-        return hash;
+        return coppie;
     }
 }

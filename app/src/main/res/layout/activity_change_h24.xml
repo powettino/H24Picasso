@@ -1,90 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_change_h24"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.yeapp.h24picasso.activity.ChangeH24">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="Lunedi'"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_marginStart="11dp"-->
+    <!--android:layout_marginTop="33dp"-->
+    <!--android:id="@+id/textLunedi" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="Martedi'"-->
+    <!--android:layout_marginTop="44dp"-->
+    <!--android:id="@+id/textMartedi"-->
+    <!--android:layout_below="@+id/textLunedi"-->
+    <!--android:layout_alignStart="@+id/textLunedi" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="Mercoledi"-->
+    <!--android:id="@+id/textMercoledi"-->
+    <!--android:layout_marginTop="44dp"-->
+    <!--android:layout_below="@+id/textMartedi"-->
+    <!--android:layout_alignStart="@+id/textMartedi" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="Giovedi"-->
+    <!--android:id="@+id/textGiovedi"-->
+    <!--android:layout_marginTop="44dp"-->
+    <!--android:layout_below="@+id/textMercoledi"-->
+    <!--android:layout_alignStart="@+id/textMercoledi" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="Venerdi"-->
+    <!--android:id="@+id/textVenerdi"-->
+    <!--android:layout_marginTop="44dp"-->
+    <!--android:layout_alignStart="@+id/textGiovedi"-->
+    <!--android:layout_below="@+id/textGiovedi"-->
+    <!--/>-->
+
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="Base"-->
+    <!--android:id="@+id/textBase"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_below="@+id/textVenerdi"-->
+    <!--android:layout_marginTop="44dp"-->
+    <!--android:layout_alignStart="@+id/textVenerdi" />-->
+
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:text="NumLunedi1"-->
+    <!--android:id="@+id/textNumLun1"-->
+    <!--android:layout_above="@+id/textMartedi"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="14dp" />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:id="@+id/listDays"
+            android:scrollbars="vertical">
+
+        </ListView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/infoBase"
+        android:layout_width="match_parent"
+        android:layout_marginTop="1dp"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Lunedi'"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="33dp"
-        android:id="@+id/textLunedi" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Martedi'"
-        android:layout_marginTop="44dp"
-        android:id="@+id/textMartedi"
-        android:layout_below="@+id/textLunedi"
-        android:layout_alignStart="@+id/textLunedi" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Mercoledi"
-        android:id="@+id/textMercoledi"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/textMartedi"
-        android:layout_alignStart="@+id/textMartedi" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Giovedi"
-        android:id="@+id/textGiovedi"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/textMercoledi"
-        android:layout_alignStart="@+id/textMercoledi" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Venerdi"
-        android:id="@+id/textVenerdi"
-        android:layout_marginTop="44dp"
-        android:layout_alignStart="@+id/textGiovedi"
-        android:layout_below="@+id/textGiovedi"
-         />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Base"
-        android:id="@+id/textBase"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/textVenerdi"
-        android:layout_marginTop="44dp"
-        android:layout_alignStart="@+id/textVenerdi" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="NumLunedi1"
-        android:id="@+id/textNumLun1"
-        android:layout_above="@+id/textMartedi"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp" />
-
-
-
-</RelativeLayout>
+        android:baselineAligned="false"
+        android:background="@color/aluminum"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Instradamento base"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/baseNum1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:text="Massimo casa"/>
+            <TextView
+                android:id="@+id/baseNum2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_weight="1"
+                android:text="Num2"/>
+            <TextView
+                android:id="@+id/baseNum3"
+                android:layout_width="0dp"
+                android:textSize="14dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="Num3"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

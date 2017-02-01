@@ -7,20 +7,22 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.yeapp.h24picasso.R;
+import com.yeapp.h24picasso.adapter.DayAdapter;
 import com.yeapp.h24picasso.utils.WebOperation;
 import com.yeapp.h24picasso.utils.Constants;
 import com.yeapp.h24picasso.utils.ProgressDialogWithTimeout;
 import com.yeapp.h24picasso.utils.GeneralUtils;
 
 import org.jsoup.select.Elements;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class ChangeH24 extends Activity implements View.OnClickListener{
 
@@ -30,20 +32,14 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
     private Button stopSpin;
     private Button logButton;
 
-    HttpURLConnection http;
-
     GetPanelTask gpt = new GetPanelTask();
+
+    DayAdapter da;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_h24);
-
-        stopSpin = (Button)findViewById(R.id.stopSpinButton);
-        stopSpin.setOnClickListener(this);
-
-        logButton = (Button) findViewById(R.id.logButton);
-        logButton.setOnClickListener(this);
 
         pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
         pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 10000);
@@ -80,22 +76,44 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
                 }
             }
         }.execute();
+
+        ListView listA = (ListView) findViewById(R.id.listDays);
+        da = new DayAdapter(this);
+        listA.setAdapter(da);
+//        listA.setEmptyView(view.findViewById(R.id.empty));
+//        listA.setOnItemClickListener(this);
+
+//        addButton = (FloatingActionButton) view.findViewById(R.id.addHand);
+//        addButton.setOnClickListener(this);
+
+
+
+//        if(restoring) {
+
+//            addButton.setEnabled(currentGame.getWinner()==0);
+//            setUIStatus();
+//            if (currentGame.getNumeroMani() != 0) {
+//                resultB.setBackgroundResource(R.color.SfondoMedio);
+//                resultA.setBackgroundResource(R.color.SfondoMedio);
+//            }
+//            restoring = false;
+//        }
     }
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.stopSpinButton: {
-                Log.d("Log prova", "sto cliccano il bottone di stop");
-                pDiag.dismiss();
-            }
-            case R.id.logButton:
-            {
-
-            }
-            default:
-                break;
-        }
+//        switch(view.getId()){
+//            case R.id.stopSpinButton: {
+//                Log.d("Log prova", "sto cliccano il bottone di stop");
+//                pDiag.dismiss();
+//            }
+//            case R.id.logButton:
+//            {
+//
+//            }
+//            default:
+//                break;
+//        }
     }
 
     @Override
@@ -119,7 +137,9 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
             pDiag.dismiss();
             Log.d("PANEL", "ok");
             Elements listCoppie = GeneralUtils.getElementsList(s, "tr[class='nero12']");
-            HashMap<String, String> listGiorni = GeneralUtils.getDaysNames(listCoppie, "td");
+            ArrayList<Pair<String, ArrayList<String>>> listGiorni = GeneralUtils.getDaysNames(listCoppie, "td", "<br>");
+            da.addDays(listGiorni, false);
+            da.notifyDataSetChanged();
             Log.d("PANEL", "Risultato ottenuto");
         }
     }
