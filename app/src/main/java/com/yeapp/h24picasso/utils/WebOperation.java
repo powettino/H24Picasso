@@ -51,7 +51,7 @@ public class WebOperation {
                 sb.append(inputLine);
             }
             br.close();
-            Log.d("RES", "Completo " + sb.toString());
+            Log.d("WEB", "Completo " + sb.toString());
             String res = sb.toString();
             return res;
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class WebOperation {
         return null;
     }
 
-    public static Bundle tryLogin(String user, String pass){
+    public static Bundle tryLogin(String user, String pass) throws Exception {
         HttpURLConnection http;
         Bundle bundle = new Bundle();
         try {
@@ -101,16 +101,17 @@ public class WebOperation {
                 sb.append(inputLine);
             }
             br.close();
-            Log.d("RES", "Completo " + sb.toString());
+            Log.d("WEB", "Completo " + sb.toString());
             String res = sb.toString();
             res = res.substring(res.indexOf(startSub)+startSub.length(),res.indexOf(endSub));
-            Log.d("RES", "tringa " + res);
+            Log.d("WEB", "tringa " + res);
             bundle.putBoolean(Constants.loginResult, res.contains("correttamente") ? true : false);
             bundle.putInt(Constants.loginRespCode, http.getResponseCode());
             bundle.putString(Constants.loginRespMessage, res);
-        } catch (IOException e) {
-            Log.d("Log prova", "errore quando provo ad aprire la cnnession");
+        } catch (Exception e) {
+            Log.d("WEB", "Errore quando provo ad aprire la connessione");
             e.printStackTrace();
+            throw e;
         }
         return bundle;
     }
@@ -121,7 +122,7 @@ public class WebOperation {
         if (cookiesHeader != null) {
             for (String cookie : cookiesHeader) {
                 msCookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
-                Log.d("WebOperation","Saving cookie: "+HttpCookie.parse(cookie).get(0).toString());
+                Log.d("WEB","Saving cookie: "+HttpCookie.parse(cookie).get(0).toString());
             }
         }
     }
@@ -129,7 +130,7 @@ public class WebOperation {
     private static void addCookies(HttpURLConnection http){
         if (msCookieManager.getCookieStore().getCookies().size() > 0) {
             http.setRequestProperty(COOKIE ,TextUtils.join(";", msCookieManager.getCookieStore().getCookies()));
-            Log.d("WebOperation", "Sending cookie: "+msCookieManager.getCookieStore().getCookies().toString());
+            Log.d("WEB", "Sending cookie: "+msCookieManager.getCookieStore().getCookies().toString());
         }
     }
 

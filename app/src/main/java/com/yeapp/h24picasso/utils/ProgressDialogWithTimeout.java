@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -73,6 +74,7 @@ public class ProgressDialogWithTimeout extends ProgressDialog {
             if(pDiag!=null){
                 pDiag.dismiss();
             }
+            Log.d("DIAG", "Scattato il timeout");
             new AlertDialog.Builder(currentContext)
                     .setTitle("Generic Error")
                     .setMessage("Timeout on request")

@@ -1,6 +1,7 @@
 package com.yeapp.h24picasso.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yeapp.h24picasso.R;
+import com.yeapp.h24picasso.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -42,10 +44,14 @@ public class DayAdapter extends BaseAdapter {
     public void addDays(ArrayList<Pair<String, ArrayList<String>>> giorni, boolean includeBase){
         coppie.clear();
         for(int i=0 ; i< (includeBase ? giorni.size(): giorni.size()-1);i++){
-//                addDay(giorni.get(i));
             coppie.add(giorni.get(i));
         }
+    }
 
+    public void clear(){
+        coppie.clear();
+        lastPosition=-1;
+        animate=true;
     }
 
     @Override
@@ -65,12 +71,12 @@ public class DayAdapter extends BaseAdapter {
         TextView num3 = (TextView) convertView.findViewById(R.id.rowNum3);
 
         etichetta.setText(coppie.get(position).first);
-        num1.setText(coppie.get(position).second.get(0));
-        num2.setText(coppie.get(position).second.get(1));
-        num3.setText(coppie.get(position).second.get(2));
+        num1.setText(Constants.Numero.getName(coppie.get(position).second.get(0)));
+        num2.setText(Constants.Numero.getName(coppie.get(position).second.get(1)));
+        num3.setText(Constants.Numero.getName(coppie.get(position).second.get(2)));
 
         if ((lastPosition < position) && animate) {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.bouncing_down);
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_left_in);
             convertView.startAnimation(animation);
         }
         lastPosition = position > lastPosition ? position : lastPosition;

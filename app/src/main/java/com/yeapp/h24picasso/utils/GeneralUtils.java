@@ -1,5 +1,6 @@
 package com.yeapp.h24picasso.utils;
 
+import android.util.Log;
 import android.util.Pair;
 
 import org.jsoup.Jsoup;
@@ -15,15 +16,6 @@ import java.util.ArrayList;
  */
 
 public class GeneralUtils {
-
-//    private static GeneralUtils instance = null;
-//
-//    public static GeneralUtils getInstance() throws XmlPullParserException {
-//        if(instance==null){
-//            return new GeneralUtils();
-//        }
-//        return instance;
-//    }
 
     private GeneralUtils() throws XmlPullParserException {
     }
@@ -42,12 +34,12 @@ public class GeneralUtils {
             if(!separator.isEmpty()){
                 String temp = listTd.get(0).html();
                 String[] separated = temp.split(separator);
-                for (String s : separated) {
-                    s = s.replace("+39","");
-                    s.trim();
-                    numbers.add(s);
+                for (String sep : separated) {
+                    sep = sep.replace("+39","");
+                    sep=sep.replaceAll(" ","");
+                    numbers.add(sep);
                 }
-                for(int i=numbers.size()-1;i<3;i++){
+                for(int i=numbers.size()-1;i<2;i++){
                     numbers.add("");
                 }
             }else{

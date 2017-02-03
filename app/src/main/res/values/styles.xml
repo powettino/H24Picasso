@@ -24,7 +24,13 @@
         <!--<item name="android:colorButtonNormal">@color/primary_darker</item>-->
     </style>
 
-    <style name="Activity" parent="Theme.AppCompat.NoActionBar">
+    <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/primary_dark</item>
     </style>
 
 </resources>

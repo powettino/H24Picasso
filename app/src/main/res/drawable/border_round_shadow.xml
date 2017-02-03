@@ -4,10 +4,11 @@
     <item>
         <shape>
             <!-- set the shadow color here -->
-            <corners android:radius="60dp"/>
+            <corners android:radius="12dp"/>
             <stroke
                 android:width="3dp"
                 android:color="#42000000" />
+            <solid android:color="@color/primary_darker"/>
             <!-- setting the thickness of shadow (positive value will give shadow on that side)-->
             <padding
                 android:bottom="3dp"

@@ -6,11 +6,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.yeapp.h24picasso.R;
 import com.yeapp.h24picasso.adapter.DayAdapter;
@@ -18,54 +25,90 @@ import com.yeapp.h24picasso.utils.WebOperation;
 import com.yeapp.h24picasso.utils.Constants;
 import com.yeapp.h24picasso.utils.ProgressDialogWithTimeout;
 import com.yeapp.h24picasso.utils.GeneralUtils;
-
 import org.jsoup.select.Elements;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-public class ChangeH24 extends Activity implements View.OnClickListener{
+public class ChangeH24 extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CODE_FOR_LOGIN = 0;
 
     private ProgressDialogWithTimeout pDiag;
-    private Button stopSpin;
-    private Button logButton;
-
-    GetPanelTask gpt = new GetPanelTask();
-
+    GetPanelTask gpt;
     DayAdapter da;
+
+    TextView baseNum1;
+    TextView baseNum2;
+    LinearLayout infoBase;
+
+    FloatingActionButton fab;
+
+    SwipeRefreshLayout srl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_h24);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
         pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
-        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 10000);
+        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 40000);
+
+        baseNum1 = (TextView) findViewById(R.id.baseNum1);
+        baseNum2 = (TextView) findViewById(R.id.baseNum2);
+
+        infoBase = (LinearLayout) findViewById(R.id.infoBase);
+        infoBase.setVisibility(View.INVISIBLE);
+
+        fab= (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
+
+        srl = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                gpt= new GetPanelTask();
+                gpt.execute();
+            }
+        });
+
+        srl.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
         new AsyncTask<Void, Void, Bundle>(){
 
             @Override
             protected Bundle doInBackground(Void... strings) {
-                return WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
+                Bundle b = new Bundle();
+                try {
+                    b = WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
+                } catch (Exception e) {
+                    pDiag.dismiss();
+                }
+                return b;
             }
 
             @Override
             protected void onPostExecute(final Bundle s) {
                 if (s.getBoolean(Constants.loginResult)) {
                     Log.d("Background", "Loggato");
+                    gpt= new GetPanelTask();
                     gpt.execute();
                 } else {
                     Log.d("Background", "Stringa " + s + ", errore");
-                    pDiag.dismiss();
                     new AlertDialog.Builder(ChangeH24.this)
-                            .setTitle("Login Error")
+                            .setTitle("Cannot auto-login")
                             .setMessage(s.getString(Constants.loginRespMessage))
                             .setCancelable(true)
                             .setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
                                 public void onDismiss(DialogInterface dialogInterface) {
-                                    if(s.getInt(Constants.loginRespCode)==200) {
+                                    if(s.isEmpty() || s.getInt(Constants.loginRespCode)==200) {
                                         Intent login = new Intent(getBaseContext(), LoginActivity.class);
                                         startActivityForResult(login, CODE_FOR_LOGIN);
                                     }
@@ -73,6 +116,7 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
                             })
                             .create()
                             .show();
+                    pDiag.dismiss();
                 }
             }
         }.execute();
@@ -102,27 +146,31 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-//        switch(view.getId()){
-//            case R.id.stopSpinButton: {
+        switch(view.getId()){
+            case R.id.fab: {
+                Log.d("PANEL", "Modifico qualcosa");
 //                Log.d("Log prova", "sto cliccano il bottone di stop");
 //                pDiag.dismiss();
-//            }
+            }
 //            case R.id.logButton:
 //            {
 //
 //            }
-//            default:
-//                break;
-//        }
+            default:
+                break;
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == CODE_FOR_LOGIN) {
+            gpt= new GetPanelTask();
             gpt.execute();
         }
     }
+
+
 
     private class GetPanelTask extends AsyncTask<Void, Void, String>{
 
@@ -135,12 +183,17 @@ public class ChangeH24 extends Activity implements View.OnClickListener{
         @Override
         protected void onPostExecute(String s) {
             pDiag.dismiss();
-            Log.d("PANEL", "ok");
             Elements listCoppie = GeneralUtils.getElementsList(s, "tr[class='nero12']");
             ArrayList<Pair<String, ArrayList<String>>> listGiorni = GeneralUtils.getDaysNames(listCoppie, "td", "<br>");
+            baseNum1.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).second.get(0)));
+            baseNum2.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).first));
+            da.clear();
             da.addDays(listGiorni, false);
             da.notifyDataSetChanged();
+            infoBase.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.VISIBLE);
             Log.d("PANEL", "Risultato ottenuto");
+            srl.setRefreshing(false);
         }
     }
 }

@@ -60,7 +60,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             @Override
             protected Bundle doInBackground(String... strings) {
-                return WebOperation.tryLogin(strings[0], strings[1]);
+                Bundle b = null;
+                try {
+                    b = WebOperation.tryLogin(strings[0], strings[1]);
+                } catch (Exception e) {
+                    pDiag.dismiss();
+                }
+                return b;
             }
 
             @Override
@@ -92,12 +98,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         _loginButton.setEnabled(true);
         finish();
     }
-
-//    public void onLoginFailed() {
-//        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-//
-//        _loginButton.setEnabled(true);
-//    }
 
     public boolean validate() {
         boolean valid = true;

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">H24Picasso</string>
     <string name="stopSpinButton">StopSpin</string>
+    <string name="instradamento_base_text">Instradamento base</string>
+    <string name="user_hint">User</string>
+    <string name="password_hint">Password</string>
+    <string name="login_hint">Login</string>
+    <string name="giorno">Giorno</string>
 </resources>
