@@ -1,6 +1,5 @@
 package com.yeapp.h24picasso.activity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -8,8 +7,6 @@ import android.os.Bundle;
 import android.app.AlertDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -109,7 +106,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                                 @Override
                                 public void onDismiss(DialogInterface dialogInterface) {
                                     if(s.isEmpty() || s.getInt(Constants.loginRespCode)==200) {
-                                        Intent login = new Intent(getBaseContext(), LoginActivity.class);
+                                        Intent login = new Intent(getBaseContext(), Login.class);
                                         startActivityForResult(login, CODE_FOR_LOGIN);
                                     }
                                 }

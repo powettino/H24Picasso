@@ -19,7 +19,7 @@ import com.yeapp.h24picasso.utils.WebOperation;
  * Created by Iacopo Peri on 26/01/17 01:34.
  */
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class Login extends Activity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
 
     EditText _userText;
@@ -49,7 +49,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialogWithTimeout pDiag = new ProgressDialogWithTimeout(LoginActivity.this);
+        final ProgressDialogWithTimeout pDiag = new ProgressDialogWithTimeout(Login.this);
         pDiag.setIndeterminate(true);
         pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 10000);
 
@@ -78,7 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 } else {
                     _loginButton.setEnabled(true);
                     Log.d("Background", "Stringa " + s + ", errore");
-                    new AlertDialog.Builder(LoginActivity.this)
+                    new AlertDialog.Builder(Login.this)
                             .setTitle("Login Error")
                             .setMessage(s.getString(Constants.loginRespMessage))
                             .setCancelable(true)
