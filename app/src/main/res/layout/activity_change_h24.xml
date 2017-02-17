@@ -100,6 +100,19 @@
                     android:background="@drawable/border_round_shadow"
                     android:textSize="14sp"
                     android:text=""/>
+                <TextView
+                    android:id="@+id/baseNum3"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:paddingLeft="15dp"
+                    android:textAlignment="center"
+                    android:paddingRight="15dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_round_shadow"
+                    android:textSize="14sp"
+                    android:text=""/>
 
             </LinearLayout>
         </LinearLayout>

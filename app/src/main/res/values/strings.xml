@@ -6,4 +6,7 @@
     <string name="password_hint">Password</string>
     <string name="login_hint">Login</string>
     <string name="giorno">Giorno</string>
+    <string name="title_activity_modify_name">ModifyName</string>
+    <string name="modifica">Modifica</string>
+    <string name="Opzionale">Opzionale</string>
 </resources>

@@ -75,10 +75,11 @@ public class DayAdapter extends BaseAdapter {
         num2.setText(Constants.Numero.getName(coppie.get(position).second.get(1)));
         num3.setText(Constants.Numero.getName(coppie.get(position).second.get(2)));
 
-        if ((lastPosition < position) && animate) {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_left_in);
-            convertView.startAnimation(animation);
-        }
+//        if ((lastPosition < position) && animate) {
+//            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_left_in);
+//            convertView.startAnimation(animation);
+//        }
+
         lastPosition = position > lastPosition ? position : lastPosition;
         return convertView;
     }

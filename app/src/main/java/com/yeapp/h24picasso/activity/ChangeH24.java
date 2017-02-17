@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class ChangeH24 extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CODE_FOR_LOGIN = 0;
+    private static final int CODE_FOR_MODIFY = 1;
 
     private ProgressDialogWithTimeout pDiag;
     GetPanelTask gpt;
@@ -36,6 +37,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
 
     TextView baseNum1;
     TextView baseNum2;
+    TextView baseNum3;
     LinearLayout infoBase;
 
     FloatingActionButton fab;
@@ -55,6 +57,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
 
         baseNum1 = (TextView) findViewById(R.id.baseNum1);
         baseNum2 = (TextView) findViewById(R.id.baseNum2);
+        baseNum3 = (TextView) findViewById(R.id.baseNum3);
 
         infoBase = (LinearLayout) findViewById(R.id.infoBase);
         infoBase.setVisibility(View.INVISIBLE);
@@ -146,6 +149,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
         switch(view.getId()){
             case R.id.fab: {
                 Log.d("PANEL", "Modifico qualcosa");
+
 //                Log.d("Log prova", "sto cliccano il bottone di stop");
 //                pDiag.dismiss();
             }
@@ -183,7 +187,8 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
             Elements listCoppie = GeneralUtils.getElementsList(s, "tr[class='nero12']");
             ArrayList<Pair<String, ArrayList<String>>> listGiorni = GeneralUtils.getDaysNames(listCoppie, "td", "<br>");
             baseNum1.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).second.get(0)));
-            baseNum2.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).first));
+            baseNum2.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).second.get(1)));
+            baseNum3.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).first));
             da.clear();
             da.addDays(listGiorni, false);
             da.notifyDataSetChanged();

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_width="2700sp"
+    android:layout_height="300sp"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.yeapp.h24picasso.activity.ModifyName">
+
+    <RelativeLayout
+        android:layout_width="270sp"
+        android:layout_height="300sp"
+        android:layout_centerInParent="true"
+        android:paddingTop="@dimen/insignificantMargin"
+        android:paddingBottom="@dimen/insignificantMargin"
+        android:paddingLeft="@dimen/lowMargin"
+        android:paddingRight="@dimen/lowMargin">
+
+        <LinearLayout
+            android:baselineAligned="false"
+            android:id="@+id/contenitoreScelta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:textSize="@dimen/mediumText"
+                    android:text="Numero primario"/>
+                <Spinner
+                    android:id="@+id/spinnerNome"
+                    android:paddingBottom="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:paddingBottom="10dp"
+                    android:textSize="@dimen/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Numero secondario"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="wrap_content">
+                    <EditText android:id="@+id/numeroSecondario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textSize="@dimen/smallText"
+                        android:hint="@string/Opzionale" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_height="100sp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:orientation="vertical">-->
+            <!--<TextView-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:text="Numero primario"/>-->
+
+            <!---->
+            <!--</LinearLayout>-->
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/modificaOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contenitoreScelta"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/lowMargin"
+            android:background="@color/monsoon"
+            android:gravity="center"
+            android:text="@string/modifica"
+            style="@android:style/Widget.Button"/>
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
