@@ -149,15 +149,11 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
         switch(view.getId()){
             case R.id.fab: {
                 Log.d("PANEL", "Modifico qualcosa");
-Intent intent = new Intent(getBaseContext(), ModifyName.class);
+                Intent intent = new Intent(getBaseContext(), ModifyName.class);
                 startActivityForResult(intent, CODE_FOR_MODIFY);
 //                Log.d("Log prova", "sto cliccano il bottone di stop");
 //                pDiag.dismiss();
             }
-//            case R.id.logButton:
-//            {
-//
-//            }
             default:
                 break;
         }

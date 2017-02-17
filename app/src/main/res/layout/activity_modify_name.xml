@@ -33,7 +33,6 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:orientation="vertical">
@@ -50,7 +49,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="150sp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_gravity="center"
@@ -60,7 +59,7 @@
                     android:layout_height="30dp"
                     android:text="Numero secondario"/>
                 <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="150sp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"

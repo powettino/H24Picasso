@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -28,12 +29,18 @@ public class ModifyName extends AppCompatActivity {
 
         modificaOk = (Button) findViewById(R.id.modificaOk);
 
-        List<String> arraySpinner = new ArrayList<String>();
+        List<String> spinnerArray = new ArrayList<String>();
         for( Constants.Numero r : Constants.Numero.values()){
-            arraySpinner.add(r.toString());
+            spinnerArray.add(r.toString());
             Log.d("MODIFICA", r.toString());
         }
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
 
     }
 
