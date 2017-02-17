@@ -39,6 +39,38 @@ public class Constants {
             this.numero = num;
         }
 
+        public static String getNumero(String nome){
+            if(nome.equalsIgnoreCase(IACOPO.toString())){
+                return IACOPO.numero;
+            }
+            if(nome.equalsIgnoreCase(MASSIMO.toString())){
+                return MASSIMO.numero;
+            }
+            if(nome.equalsIgnoreCase(NICOLETTA.toString())){
+                return NICOLETTA.numero;
+            }
+            if(nome.equalsIgnoreCase(ANDREA.toString())){
+                return ANDREA.numero;
+            }
+            if(nome.equalsIgnoreCase(DAVIDE.toString())){
+                return DAVIDE.numero;
+            }
+            if(nome.equalsIgnoreCase(CARMELO.toString())){
+                return CARMELO.numero;
+            }
+            if(nome.equalsIgnoreCase(UMBERTO.toString())){
+                return UMBERTO.numero;
+            }
+            if(nome.equalsIgnoreCase(CODICES.toString())){
+                return CODICES.numero;
+            }
+            if(nome.equalsIgnoreCase(SUPPORTO.toString())){
+                return SUPPORTO.numero;
+            }
+            return "-";
+
+        }
+
         public static String getName(String numero){
             if(numero.equalsIgnoreCase(IACOPO.numero)){
                 return IACOPO.toString();
