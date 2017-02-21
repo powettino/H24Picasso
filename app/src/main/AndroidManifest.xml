@@ -23,7 +23,7 @@
             android:name=".activity.ChangeH24"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark"></activity>
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".activity.Login"
             android:label="@string/app_name"
@@ -33,7 +33,7 @@
             android:name=".activity.ModifyName"
             android:label="@string/title_activity_modify_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark"></activity>
+            android:theme="@style/FeatureDialog" />
     </application>
 
 </manifest>

@@ -126,7 +126,6 @@
         app:layout_anchor="@id/listDays"
         android:src="@android:drawable/ic_menu_edit"
         app:layout_anchorGravity="bottom|end"
-        android:theme="@style/AppTheme.Dark"
         app:backgroundTint="@color/button_color"
         android:clickable="true"
         android:onClick="onClick" />

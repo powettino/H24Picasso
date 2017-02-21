@@ -32,12 +32,13 @@ public class WebOperation {
     public static String getPanel() {
         HttpURLConnection http;
         try {
-            http = (HttpURLConnection) new URL(Constants.Connection.PANEL_URL).openConnection();
-            http.setDoOutput(true);
-            http.setFixedLengthStreamingMode(0);
-            http.setRequestMethod("GET");
-            addCookies(http);
+//            http = (HttpURLConnection) new URL(Constants.Connection.CONNECTION_URL).openConnection();
+//            http.setDoOutput(true);
+//            http.setFixedLengthStreamingMode(0);
+//            http.setRequestMethod("GET");
+//            addCookies(http);
 
+            http = connect(null, Constants.Connection.CONNECTION_URL, Constants.Connection.GET_METHOD);
             InputStream is = null;
             if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 is = http.getErrorStream();
@@ -64,21 +65,22 @@ public class WebOperation {
         HttpURLConnection http;
         Bundle bundle = new Bundle();
         try {
-            String postData = Constants.Connection.POSTDATA.replace("@USER@", user).replace("@PASS@", pass);
-            http = (HttpURLConnection) new URL(Constants.Connection.CONNECTION_URL).openConnection();
-            http.setDoOutput(true);
-            http.setFixedLengthStreamingMode(postData.length());
-//                    http.setChunkedStreamingMode(0);
-            http.setRequestMethod("GET");
-
-            addCookies(http);
-
-            OutputStream os = http.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(postData);
-            writer.flush();
-            writer.close();
-            os.close();
+            String postData = Constants.Connection.POST_LOGIN.replace("@USER@", user).replace("@PASS@", pass);
+            http = connect(postData, Constants.Connection.CONNECTION_URL, Constants.Connection.GET_METHOD);
+//            http = (HttpURLConnection) new URL(Constants.Connection.CONNECTION_URL).openConnection();
+//            http.setDoOutput(true);
+//            http.setFixedLengthStreamingMode(postData.length());
+////                    http.setChunkedStreamingMode(0);
+//            http.setRequestMethod("GET");
+//
+//            addCookies(http);
+//
+//            OutputStream os = http.getOutputStream();
+//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+//            writer.write(postData);
+//            writer.flush();
+//            writer.close();
+//            os.close();
 
             InputStream is = null;
             String startSub="";
@@ -108,12 +110,42 @@ public class WebOperation {
             bundle.putBoolean(Constants.loginResult, res.contains("correttamente") ? true : false);
             bundle.putInt(Constants.loginRespCode, http.getResponseCode());
             bundle.putString(Constants.loginRespMessage, res);
-        } catch (Exception e) {
+        } catch (Exception e){
             Log.d("WEB", "Errore quando provo ad aprire la connessione");
             e.printStackTrace();
             throw e;
         }
         return bundle;
+    }
+
+    public static void SaveDaysNumbers(String mainNumber, String email, String firstNumber, String secondNumber, String id_day, String prog_day) throws Exception{
+        String postData = Constants.Connection.POST_SAVE_DAYS.replaceAll("$numero1", mainNumber)
+                .replaceAll("$email", email)
+                .replaceAll("$numero2", firstNumber)
+                .replaceAll("$numero3", secondNumber)
+                .replaceAll("$id_fascia", id_day)
+                .replaceAll("$num_giorno", prog_day);
+        HttpURLConnection http = connect(postData, Constants.Connection.SAVE_URL, Constants.Connection.GET_METHOD);
+
+    }
+
+    private static HttpURLConnection connect(String postData, String url, String requestMethod) throws IOException {
+        HttpURLConnection http = (HttpURLConnection) new URL(Constants.Connection.SAVE_URL).openConnection();
+        http.setDoOutput(true);
+        http.setFixedLengthStreamingMode(postData==null ? 0 : postData.length());
+//                    http.setChunkedStreamingMode(0);
+        http.setRequestMethod(requestMethod);
+
+        addCookies(http);
+        if(postData!=null) {
+            OutputStream os = http.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(postData);
+            writer.flush();
+            writer.close();
+            os.close();
+        }
+        return http;
     }
 
     private static void extractCookies(HttpURLConnection http) {

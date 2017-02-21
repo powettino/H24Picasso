@@ -9,4 +9,6 @@
     <string name="title_activity_modify_name">ModifyName</string>
     <string name="modifica">Modifica</string>
     <string name="Opzionale">Opzionale</string>
+    <string name="Save">Save</string>
+    <string name="ok">OK</string>
 </resources>

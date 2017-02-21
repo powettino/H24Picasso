@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ChangeH24 extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CODE_FOR_LOGIN = 0;
-    private static final int CODE_FOR_MODIFY = 1;
+    private static final int CODE_FOR_SAVE = 1;
 
     private ProgressDialogWithTimeout pDiag;
     GetPanelTask gpt;
@@ -144,13 +144,12 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
 //        }
     }
 
-    @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.fab: {
                 Log.d("PANEL", "Modifico qualcosa");
                 Intent intent = new Intent(getBaseContext(), ModifyName.class);
-                startActivityForResult(intent, CODE_FOR_MODIFY);
+                startActivityForResult(intent, CODE_FOR_SAVE);
 //                Log.d("Log prova", "sto cliccano il bottone di stop");
 //                pDiag.dismiss();
             }
@@ -161,10 +160,16 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == CODE_FOR_LOGIN) {
-            gpt= new GetPanelTask();
-            gpt.execute();
+        switch (requestCode){
+            case CODE_FOR_LOGIN:{
+                gpt= new GetPanelTask();
+                gpt.execute();
+            }
+            case CODE_FOR_SAVE:{
+
+            }
+            default:
+                break;
         }
     }
 

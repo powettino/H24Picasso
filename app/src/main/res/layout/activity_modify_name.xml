@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    android:layout_width="2700sp"
+    android:layout_width="230sp"
     android:layout_height="300sp"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:paddingTop="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/insignificantMargin"
+    android:paddingBottom="@dimen/insignificantMargin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.yeapp.h24picasso.activity.ModifyName">
 
     <RelativeLayout
-        android:layout_width="270sp"
-        android:layout_height="300sp"
+        android:layout_width="230sp"
+        android:layout_height="280dp"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:paddingTop="@dimen/insignificantMargin"
         android:paddingBottom="@dimen/insignificantMargin"
         android:paddingLeft="@dimen/lowMargin"
@@ -27,6 +28,7 @@
             android:id="@+id/contenitoreScelta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="0dp"
@@ -34,75 +36,60 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+
                 android:orientation="vertical">
                 <TextView
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
+                    android:gravity="center"
                     android:textSize="@dimen/mediumText"
                     android:text="Numero primario"/>
                 <Spinner
                     android:id="@+id/spinnerNome"
                     android:paddingBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_width="150sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_gravity="center"
                     android:paddingBottom="10dp"
                     android:textSize="@dimen/mediumText"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Numero secondario"/>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="150sp"
                     android:layout_marginBottom="15dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content">
                     <EditText android:id="@+id/numeroSecondario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:inputType="phone"
                         android:textSize="@dimen/smallText"
                         android:hint="@string/Opzionale" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
-            <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="100sp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:gravity="center"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:orientation="vertical">-->
-            <!--<TextView-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:text="Numero primario"/>-->
-
-            <!---->
-            <!--</LinearLayout>-->
         </LinearLayout>
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/modificaOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contenitoreScelta"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/lowMargin"
-            android:background="@color/monsoon"
+            app:backgroundTint="@color/button_color"
             android:gravity="center"
-            android:text="@string/modifica"
-            style="@android:style/Widget.Button"/>
+            android:text="@string/Save"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="onClick" />
 
     </RelativeLayout>
 
