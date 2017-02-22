@@ -33,6 +33,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
 
     private ProgressDialogWithTimeout pDiag;
     GetPanelTask gpt;
+    SaveNumberTask snt;
     DayAdapter da;
 
     TextView baseNum1;
@@ -166,7 +167,16 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                 gpt.execute();
             }
             case CODE_FOR_SAVE:{
-
+                pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
+                pDiag.show("Saving data...", "Connecting to \"Gestionenumeroverde\"", 40000);
+                String first = data.getStringExtra(Constants.firstNumber);
+                String second = data.getStringExtra(Constants.secondNumber);
+                for(int i =0; i<Constants.Connection.ID_DAYS.length;i++){
+                    snt = new SaveNumberTask();
+                    snt.execute(first, second, String.valueOf(i));
+                }
+                snt =new SaveNumberTask();
+                snt.execute(first, second);
             }
             default:
                 break;
@@ -174,6 +184,31 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    private class SaveNumberTask extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                if(params.length==3) {
+                    Log.d("PANEL", "Lancio il salvataggio dei campi per giorno");
+                    WebOperation.SaveDaysNumbers(Constants.Numero.CODICES.getValue(), Constants.Numero.SUPPORTO.getValue(), params[0], params[1], Constants.Connection.ID_DAYS[Integer.parseInt(params[2])], params[2] + 1);
+                }else{
+                    Log.d("PANEL", "Lancio il salvataggio dei campi per base");
+                    WebOperation.SaveBaseNumbers(Constants.Numero.SUPPORTO.getValue(), params[0], params[1]);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.d("PANEL", "salvtaggio terminato");
+            gpt = new GetPanelTask();
+            gpt.execute();
+        }
+    }
 
     private class GetPanelTask extends AsyncTask<Void, Void, String>{
 
@@ -189,6 +224,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
             Elements listCoppie = GeneralUtils.getElementsList(s, "tr[class='nero12']");
             ArrayList<Pair<String, ArrayList<String>>> listGiorni = GeneralUtils.getDaysNames(listCoppie, "td", "<br>");
             baseNum1.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).second.get(0)));
+            Log.d("BOH:", "RISULTATO> "+listGiorni.get(listGiorni.size()-1).second.get(1)+"--");
             baseNum2.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).second.get(1)));
             baseNum3.setText(Constants.Numero.getName(listGiorni.get(listGiorni.size()-1).first));
             da.clear();

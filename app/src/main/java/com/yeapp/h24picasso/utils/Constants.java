@@ -23,8 +23,9 @@ public class Constants {
         public static final String USER ="800858446";
         public static final String PWD ="m4j3i9r9";
         public static final String CONNECTION_URL ="http://www.gestionenumeroverde.it/np_pub/login.php";
-        public static final String SAVE_URL="http://www.gestionenumeroverde.it/np_pub/mod_fasce2.php";
-        //public static final String PANEL_URL="http://www.gestionenumeroverde.it/np_pub/home.php";
+        public static final String SAVE_DAYS_URL="http://www.gestionenumeroverde.it/np_pub/mod_fasce2.php";
+        public static final String SAVE_BASE_URL="http://www.gestionenumeroverde.it/np_pub/mod_base2.php";
+        public static final String PANEL_URL="http://www.gestionenumeroverde.it/np_pub/home.php";
         public static String POST_LOGIN = "login=@USER@&pass=@PASS@&tipo=0&button=Entra";
         public static String POST_SAVE_DAYS="pref_internaz=0039&terminazione1=$numero1&pref_internaz=0039&terminazione2=$numero2" +
                 "&pref_internaz=0039&terminazione3=$numero3&pref_internaz=0039&terminazione4=&pref_internaz=0039" +
@@ -63,6 +64,10 @@ public class Constants {
             this.numero = num;
         }
 
+        public String getValue(){
+            return this.numero;
+        }
+
         public static String getNumero(String nome){
             if(nome.equalsIgnoreCase(IACOPO.toString())){
                 return IACOPO.numero;
@@ -91,8 +96,8 @@ public class Constants {
             if(nome.equalsIgnoreCase(SUPPORTO.toString())){
                 return SUPPORTO.numero;
             }
-            return "-";
 
+            return "-";
         }
 
         public static String getName(String numero){
@@ -122,6 +127,9 @@ public class Constants {
             }
             if(numero.equalsIgnoreCase(SUPPORTO.numero)) {
                 return SUPPORTO.toString();
+            }
+            if(numero!=null && numero.length()!=0){
+                return numero;
             }
             return "-";
         }

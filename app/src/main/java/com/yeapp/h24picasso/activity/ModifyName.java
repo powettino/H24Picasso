@@ -58,7 +58,7 @@ public class ModifyName extends AppCompatActivity implements View.OnClickListene
             case R.id.modificaOk: {
                 Log.d("MODIFY", "SALVO");
                 setResult(RESULT_OK, getIntent()
-                        .putExtra(Constants.firstNumber, spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString())
+                        .putExtra(Constants.firstNumber, Constants.Numero.getNumero(spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString()))
                         .putExtra(Constants.secondNumber, second.getText().toString()));
 
                 finish();

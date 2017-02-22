@@ -32,13 +32,8 @@ public class WebOperation {
     public static String getPanel() {
         HttpURLConnection http;
         try {
-//            http = (HttpURLConnection) new URL(Constants.Connection.CONNECTION_URL).openConnection();
-//            http.setDoOutput(true);
-//            http.setFixedLengthStreamingMode(0);
-//            http.setRequestMethod("GET");
-//            addCookies(http);
 
-            http = connect(null, Constants.Connection.CONNECTION_URL, Constants.Connection.GET_METHOD);
+            http = connect(null, Constants.Connection.PANEL_URL, Constants.Connection.GET_METHOD);
             InputStream is = null;
             if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 is = http.getErrorStream();
@@ -67,20 +62,6 @@ public class WebOperation {
         try {
             String postData = Constants.Connection.POST_LOGIN.replace("@USER@", user).replace("@PASS@", pass);
             http = connect(postData, Constants.Connection.CONNECTION_URL, Constants.Connection.GET_METHOD);
-//            http = (HttpURLConnection) new URL(Constants.Connection.CONNECTION_URL).openConnection();
-//            http.setDoOutput(true);
-//            http.setFixedLengthStreamingMode(postData.length());
-////                    http.setChunkedStreamingMode(0);
-//            http.setRequestMethod("GET");
-//
-//            addCookies(http);
-//
-//            OutputStream os = http.getOutputStream();
-//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-//            writer.write(postData);
-//            writer.flush();
-//            writer.close();
-//            os.close();
 
             InputStream is = null;
             String startSub="";
@@ -106,7 +87,7 @@ public class WebOperation {
             Log.d("WEB", "Completo " + sb.toString());
             String res = sb.toString();
             res = res.substring(res.indexOf(startSub)+startSub.length(),res.indexOf(endSub));
-            Log.d("WEB", "tringa " + res);
+            Log.d("WEB", "stringa " + res);
             bundle.putBoolean(Constants.loginResult, res.contains("correttamente") ? true : false);
             bundle.putInt(Constants.loginRespCode, http.getResponseCode());
             bundle.putString(Constants.loginRespMessage, res);
@@ -118,22 +99,58 @@ public class WebOperation {
         return bundle;
     }
 
-    public static void SaveDaysNumbers(String mainNumber, String email, String firstNumber, String secondNumber, String id_day, String prog_day) throws Exception{
-        String postData = Constants.Connection.POST_SAVE_DAYS.replaceAll("$numero1", mainNumber)
-                .replaceAll("$email", email)
-                .replaceAll("$numero2", firstNumber)
-                .replaceAll("$numero3", secondNumber)
-                .replaceAll("$id_fascia", id_day)
-                .replaceAll("$num_giorno", prog_day);
-        HttpURLConnection http = connect(postData, Constants.Connection.SAVE_URL, Constants.Connection.GET_METHOD);
+    public static void SaveBaseNumbers(String email, String firstNumber, String secondNumber) throws IOException {
+        String postData = Constants.Connection.POST_SAVE_BASE.replace("$numero", firstNumber)
+                .replace("$email", email)
+                .replace("$num_aggiuntivo", secondNumber);
+        Log.d("WEB", "Completo SAVE giorno base con risultato: " + postData);
+        HttpURLConnection http = connect(postData, Constants.Connection.SAVE_BASE_URL, Constants.Connection.GET_METHOD);
+        InputStream is = null;
+        if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            is = http.getErrorStream();
+        } else {
+            is = http.getInputStream();
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        StringBuffer sb = new StringBuffer();
+        String inputLine;
+        while ((inputLine = br.readLine()) != null) {
+            sb.append(inputLine);
+        }
+        br.close();
+        Log.d("WEB", "Completo SAVE giorno base con risultato: " + sb.toString());
+    }
 
+    public static void SaveDaysNumbers(String mainNumber, String email, String firstNumber, String secondNumber, String id_day, String prog_day) throws Exception{
+        String postData = Constants.Connection.POST_SAVE_DAYS.replace("$numero1", mainNumber)
+                .replace("$email", email)
+                .replace("$numero2", firstNumber)
+                .replace("$numero3", secondNumber)
+                .replace("$id_fascia", id_day)
+                .replace("$num_giorno", prog_day);
+
+        Log.d("WEB", "Completo SAVE giorno "+id_day+" con risultato: " + postData);
+        HttpURLConnection http = connect(postData, Constants.Connection.SAVE_DAYS_URL, Constants.Connection.GET_METHOD);
+        InputStream is = null;
+        if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            is = http.getErrorStream();
+        } else {
+            is = http.getInputStream();
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        StringBuffer sb = new StringBuffer();
+        String inputLine;
+        while ((inputLine = br.readLine()) != null) {
+            sb.append(inputLine);
+        }
+        br.close();
+        Log.d("WEB", "Completo SAVE giorno "+id_day+" con risultato: " + sb.toString());
     }
 
     private static HttpURLConnection connect(String postData, String url, String requestMethod) throws IOException {
-        HttpURLConnection http = (HttpURLConnection) new URL(Constants.Connection.SAVE_URL).openConnection();
+        HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
         http.setDoOutput(true);
         http.setFixedLengthStreamingMode(postData==null ? 0 : postData.length());
-//                    http.setChunkedStreamingMode(0);
         http.setRequestMethod(requestMethod);
 
         addCookies(http);
