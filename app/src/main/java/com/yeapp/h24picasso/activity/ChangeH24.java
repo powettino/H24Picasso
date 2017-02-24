@@ -53,12 +53,12 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
+        pDiag = new ProgressDialogWithTimeout(ChangeH24.this, android.R.style.Theme_Translucent);
         pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 40000);
 
-        baseNum1 = (TextView) findViewById(R.id.baseNum1);
-        baseNum2 = (TextView) findViewById(R.id.baseNum2);
-        baseNum3 = (TextView) findViewById(R.id.baseNum3);
+        baseNum1 = (TextView) findViewById(R.id.base1);
+        baseNum2 = (TextView) findViewById(R.id.base2);
+        baseNum3 = (TextView) findViewById(R.id.base3);
 
         infoBase = (LinearLayout) findViewById(R.id.infoBase);
         infoBase.setVisibility(View.INVISIBLE);
@@ -166,17 +166,19 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                 gpt= new GetPanelTask();
                 gpt.execute();
             }
-            case CODE_FOR_SAVE:{
-                pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
-                pDiag.show("Saving data...", "Connecting to \"Gestionenumeroverde\"", 40000);
-                String first = data.getStringExtra(Constants.firstNumber);
-                String second = data.getStringExtra(Constants.secondNumber);
-                for(int i =0; i<Constants.Connection.ID_DAYS.length;i++){
+            case CODE_FOR_SAVE: {
+                if (resultCode == RESULT_OK) {
+                    pDiag = new ProgressDialogWithTimeout(ChangeH24.this);
+                    pDiag.show("Saving data...", "Connecting to \"Gestionenumeroverde\"", 40000);
+                    String first = data.getStringExtra(Constants.firstNumber);
+                    String second = data.getStringExtra(Constants.secondNumber);
+                    for (int i = 0; i < Constants.Connection.ID_DAYS.length; i++) {
+                        snt = new SaveNumberTask();
+                        snt.execute(first, second, String.valueOf(i + 1));
+                    }
                     snt = new SaveNumberTask();
-                    snt.execute(first, second, String.valueOf(i));
+                    snt.execute(first, second);
                 }
-                snt =new SaveNumberTask();
-                snt.execute(first, second);
             }
             default:
                 break;
@@ -191,7 +193,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
             try {
                 if(params.length==3) {
                     Log.d("PANEL", "Lancio il salvataggio dei campi per giorno");
-                    WebOperation.SaveDaysNumbers(Constants.Numero.CODICES.getValue(), Constants.Numero.SUPPORTO.getValue(), params[0], params[1], Constants.Connection.ID_DAYS[Integer.parseInt(params[2])], params[2] + 1);
+                    WebOperation.SaveDaysNumbers(Constants.Numero.CODICES.getValue(), Constants.Numero.SUPPORTO.getValue(), params[0], params[1], Constants.Connection.ID_DAYS[Integer.parseInt(params[2])-1], params[2]);
                 }else{
                     Log.d("PANEL", "Lancio il salvataggio dei campi per base");
                     WebOperation.SaveBaseNumbers(Constants.Numero.SUPPORTO.getValue(), params[0], params[1]);

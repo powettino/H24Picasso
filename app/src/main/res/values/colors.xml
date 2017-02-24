@@ -5,9 +5,11 @@
     <color name="colorAccent">#C8E6C9</color>
 
     <color name="primary">#4CAF50</color>
+    <color name="primary_light">#A5D6A7</color>
     <color name="primary_dark">#388E3C</color>
     <color name="primary_darker">#2e7d32</color>
-    <color name="accent">#FFFFFF</color>
+    <color name="primary_darkest">#1B5E20</color>
+    <color name="accent">#2e7d32</color>
 
     <color name="black">#000000</color>
     <color name="jet">#222222</color>
@@ -18,5 +20,6 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
-    <color name="button_color">#1ecd27</color>
+    <!--<color name="button_color">#1ecd27</color>-->
+    <color name="button_color">#4CAF50</color>
 </resources>

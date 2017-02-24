@@ -70,11 +70,14 @@ public class DayAdapter extends BaseAdapter {
         TextView num2 = (TextView) convertView.findViewById(R.id.rowNum2);
         TextView num3 = (TextView) convertView.findViewById(R.id.rowNum3);
 
-        etichetta.setText(coppie.get(position).first);
+        etichetta.setText((coppie.get(position).first).substring(0,3));
         num1.setText(Constants.Numero.getName(coppie.get(position).second.get(0)));
         num2.setText(Constants.Numero.getName(coppie.get(position).second.get(1)));
         num3.setText(Constants.Numero.getName(coppie.get(position).second.get(2)));
-
+        if ((coppie.size()==position+1)) {
+            LinearLayout ll = (LinearLayout) convertView.findViewById(R.id.contenitore);
+            ll.setBackgroundResource(0);
+        }
 //        if ((lastPosition < position) && animate) {
 //            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_left_in);
 //            convertView.startAnimation(animation);

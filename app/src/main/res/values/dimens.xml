@@ -24,4 +24,6 @@
     <dimen name="normalText">25sp</dimen>
     <dimen name="mediumText">20sp</dimen>
     <dimen name="smallText">15sp</dimen>
+    <dimen name="testoNumeri">16sp</dimen>
+    <dimen name="testoOra">13sp</dimen>
 </resources>

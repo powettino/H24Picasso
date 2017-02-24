@@ -10,6 +10,7 @@
     android:layout_centerVertical="true"
     android:paddingTop="@dimen/insignificantMargin"
     android:paddingBottom="@dimen/insignificantMargin"
+    android:focusableInTouchMode="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.yeapp.h24picasso.activity.ModifyName">
 

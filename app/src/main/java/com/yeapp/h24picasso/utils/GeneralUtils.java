@@ -41,7 +41,7 @@ public class GeneralUtils {
                     sep = sep.replace("+39","");
                     sep=sep.replaceAll(" ","");
                     numbers.add(sep);
-                    Log.d("GENERAL", "aggiunto numero: "+sep);
+//                    Log.d("GENERAL", "aggiunto numero: "+sep);
                 }
                 for(int i=numbers.size()-1;i<2;i++){
                     numbers.add("");
