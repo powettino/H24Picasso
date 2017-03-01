@@ -48,13 +48,14 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_change_h24);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         pDiag = new ProgressDialogWithTimeout(ChangeH24.this, android.R.style.Theme_Translucent);
-        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 40000);
+//        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 40000);
 
         baseNum1 = (TextView) findViewById(R.id.base1);
         baseNum2 = (TextView) findViewById(R.id.base2);
@@ -63,14 +64,14 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
         infoBase = (LinearLayout) findViewById(R.id.infoBase);
         infoBase.setVisibility(View.INVISIBLE);
 
-        fab= (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setVisibility(View.INVISIBLE);
 
         srl = (SwipeRefreshLayout) findViewById(R.id.swipe);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                gpt= new GetPanelTask();
+                gpt = new GetPanelTask();
                 gpt.execute();
             }
         });
@@ -81,58 +82,50 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                 android.R.color.holo_red_light);
 
 
-        new AsyncTask<Void, Void, Bundle>(){
-
-            @Override
-            protected Bundle doInBackground(Void... strings) {
-                Bundle b = new Bundle();
-                try {
-                    b = WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
-                } catch (Exception e) {
-                    pDiag.dismiss();
-                }
-                return b;
-            }
-
-            @Override
-            protected void onPostExecute(final Bundle s) {
-                if (s.getBoolean(Constants.loginResult)) {
-                    Log.d("Background", "Loggato");
-                    gpt= new GetPanelTask();
-                    gpt.execute();
-                } else {
-                    Log.d("Background", "Stringa " + s + ", errore");
-                    new AlertDialog.Builder(ChangeH24.this)
-                            .setTitle("Cannot auto-login")
-                            .setMessage(s.getString(Constants.loginRespMessage))
-                            .setCancelable(true)
-                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialogInterface) {
-                                    if(s.isEmpty() || s.getInt(Constants.loginRespCode)==200) {
-                                        Intent login = new Intent(getBaseContext(), Login.class);
-                                        startActivityForResult(login, CODE_FOR_LOGIN);
-                                    }
-                                }
-                            })
-                            .create()
-                            .show();
-                    pDiag.dismiss();
-                }
-            }
-        }.execute();
+//            new AsyncTask<Void, Void, Bundle>() {
+//
+//                @Override
+//                protected Bundle doInBackground(Void... strings) {
+//                    Bundle b = new Bundle();
+//                    try {
+//                        b = WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
+//                    } catch (Exception e) {
+//                        pDiag.dismiss();
+//                    }
+//                    return b;
+//                }
+//
+//                @Override
+//                protected void onPostExecute(final Bundle s) {
+//                    if (s.getBoolean(Constants.loginResult)) {
+//                        Log.d("Background", "Loggato");
+//                        gpt = new GetPanelTask();
+//                        gpt.execute();
+//                    } else {
+//                        Log.d("Background", "Stringa " + s + ", errore");
+//                        new AlertDialog.Builder(ChangeH24.this)
+//                                .setTitle("Cannot auto-login")
+//                                .setMessage(s.getString(Constants.loginRespMessage))
+//                                .setCancelable(true)
+//                                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                                    @Override
+//                                    public void onDismiss(DialogInterface dialogInterface) {
+//                                        if (s.isEmpty() || s.getInt(Constants.loginRespCode) == 200) {
+//                                            Intent login = new Intent(getBaseContext(), Login.class);
+//                                            startActivityForResult(login, CODE_FOR_LOGIN);
+//                                        }
+//                                    }
+//                                })
+//                                .create()
+//                                .show();
+//                        pDiag.dismiss();
+//                    }
+//                }
+//            }.execute();
 
         ListView listA = (ListView) findViewById(R.id.listDays);
         da = new DayAdapter(this);
         listA.setAdapter(da);
-//        listA.setEmptyView(view.findViewById(R.id.empty));
-//        listA.setOnItemClickListener(this);
-
-//        addButton = (FloatingActionButton) view.findViewById(R.id.addHand);
-//        addButton.setOnClickListener(this);
-
-
-
 //        if(restoring) {
 
 //            addButton.setEnabled(currentGame.getWinner()==0);
@@ -143,6 +136,30 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
 //            }
 //            restoring = false;
 //        }
+        String message = getIntent().getStringExtra(Constants.loginRespMessage);
+        if(message!=null && !getIntent().getBooleanExtra(Constants.loginResult, false)){
+            new AlertDialog.Builder(ChangeH24.this)
+                    .setTitle("Cannot auto-login")
+                    .setMessage(getIntent().getStringExtra(Constants.loginRespMessage))
+                    .setCancelable(true)
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+//                            if (val.isEmpty() || val.getInt(Constants.loginRespCode) == 200) {
+                            if (getIntent().getIntExtra(Constants.loginRespCode, 0) == 200) {
+                                Intent login = new Intent(getBaseContext(), Login.class);
+                                startActivityForResult(login, CODE_FOR_LOGIN);
+                            }
+                        }
+                    })
+                    .create()
+                    .show();
+            pDiag.dismiss();
+        }else{
+            Log.d("Background", "Loggato");
+            gpt = new GetPanelTask();
+            gpt.execute();
+        }
     }
 
     public void onClick(View view) {
@@ -151,8 +168,6 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                 Log.d("PANEL", "Modifico qualcosa");
                 Intent intent = new Intent(getBaseContext(), ModifyName.class);
                 startActivityForResult(intent, CODE_FOR_SAVE);
-//                Log.d("Log prova", "sto cliccano il bottone di stop");
-//                pDiag.dismiss();
             }
             default:
                 break;

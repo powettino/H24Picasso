@@ -49,7 +49,6 @@ public class ModifyName extends AppCompatActivity implements View.OnClickListene
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
-
     }
 
     @Override
