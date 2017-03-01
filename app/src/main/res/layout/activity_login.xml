@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/primary_light"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -12,7 +13,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@android:drawable/btn_radio"
+        <ImageView android:src="@drawable/splash_hdpi"
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
@@ -49,6 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:background="@color/primary"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:text="@string/login_hint"/>
