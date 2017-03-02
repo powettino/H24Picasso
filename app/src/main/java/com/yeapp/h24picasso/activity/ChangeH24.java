@@ -55,7 +55,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
         setSupportActionBar(myToolbar);
 
         pDiag = new ProgressDialogWithTimeout(ChangeH24.this, android.R.style.Theme_Translucent);
-//        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 40000);
+        pDiag.show("Connecting...", "Connecting to \"Gestionenumeroverde\"", 40000);
 
         baseNum1 = (TextView) findViewById(R.id.base1);
         baseNum2 = (TextView) findViewById(R.id.base2);
