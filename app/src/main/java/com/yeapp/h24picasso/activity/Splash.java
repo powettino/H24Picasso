@@ -18,6 +18,7 @@ import com.yeapp.h24picasso.utils.WebOperation;
 
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -34,9 +35,28 @@ public class Splash extends AppCompatActivity {
             @Override
             protected Bundle doInBackground(Void... strings) {
                 Bundle b = new Bundle();
+
                 try {
                     b = WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
-                } catch (Exception e) {
+                } catch (IOException e) {
+                    new AlertDialog.Builder(Splash.this)
+                            .setTitle("Connection problem")
+                            .setMessage("Check your connection and try to execute again")
+                            .setCancelable(false)
+                            .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    finish();
+                                }
+                            })
+                            .create()
+                            .show();
                 }
                 return b;
             }

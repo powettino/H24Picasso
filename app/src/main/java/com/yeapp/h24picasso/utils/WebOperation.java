@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
@@ -56,7 +57,7 @@ public class WebOperation {
         return null;
     }
 
-    public static Bundle tryLogin(String user, String pass) throws Exception {
+    public static Bundle tryLogin(String user, String pass) throws IOException, UnsupportedEncodingException {
         HttpURLConnection http;
         Bundle bundle = new Bundle();
         try {
@@ -64,17 +65,17 @@ public class WebOperation {
             http = connect(postData, Constants.Connection.CONNECTION_URL, Constants.Connection.GET_METHOD);
 
             InputStream is = null;
-            String startSub="";
-            String endSub="";
+            String startSub = "";
+            String endSub = "";
             if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 is = http.getErrorStream();
-                startSub="<p>";
-                endSub="<br /></p>";
+                startSub = "<p>";
+                endSub = "<br /></p>";
 
             } else {
                 is = http.getInputStream();
-                startSub="<span class=\"nero15b\">";
-                endSub="</span>";
+                startSub = "<span class=\"nero15b\">";
+                endSub = "</span>";
                 extractCookies(http);
             }
             BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
@@ -86,15 +87,19 @@ public class WebOperation {
             br.close();
             Log.d("WEB", "Completo " + sb.toString());
             String res = sb.toString();
-            res = res.substring(res.indexOf(startSub)+startSub.length(),res.indexOf(endSub));
+            res = res.substring(res.indexOf(startSub) + startSub.length(), res.indexOf(endSub));
             Log.d("WEB", "stringa " + res);
             bundle.putBoolean(Constants.loginResult, res.contains("correttamente") ? true : false);
             bundle.putInt(Constants.loginRespCode, http.getResponseCode());
             bundle.putString(Constants.loginRespMessage, res);
-        } catch (Exception e){
-            Log.d("WEB", "Errore quando provo ad aprire la connessione");
-            e.printStackTrace();
-            throw e;
+        } catch (UnsupportedEncodingException uee) {
+            Log.d("WEB", "Errore quando provo ad aprire la connessione "+uee.getLocalizedMessage());
+            uee.printStackTrace();
+            throw uee;
+        } catch (IOException ioe) {
+            Log.d("WEB", "Errore quando provo ad aprire la connessione "+ ioe.getLocalizedMessage());
+            ioe.printStackTrace();
+            throw ioe;
         }
         return bundle;
     }
