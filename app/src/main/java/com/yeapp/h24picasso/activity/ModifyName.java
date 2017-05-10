@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -25,6 +26,7 @@ public class ModifyName extends AppCompatActivity implements View.OnClickListene
     Spinner spinner;
     FloatingActionButton modificaOk;
     EditText second;
+    CheckBox mainFlag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,9 @@ public class ModifyName extends AppCompatActivity implements View.OnClickListene
 
         modificaOk = (FloatingActionButton) findViewById(R.id.modificaOk);
         modificaOk.setImageBitmap(GeneralUtils.textAsBitmap("OK", 40, Color.WHITE));
+
+        mainFlag = (CheckBox) findViewById(R.id.mainFlag);
+        mainFlag.setChecked(false);
 
         List<String> spinnerArray = new ArrayList<String>();
         for( Constants.Numero r : Constants.Numero.values()){

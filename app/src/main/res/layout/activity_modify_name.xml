@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="230sp"
-    android:layout_height="300sp"
+    android:layout_height="330sp"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:layout_width="230sp"
-        android:layout_height="280dp"
+        android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:paddingTop="@dimen/insignificantMargin"
@@ -77,6 +77,17 @@
                         android:textSize="@dimen/smallText"
                         android:hint="@string/Opzionale" />
                 </android.support.design.widget.TextInputLayout>
+
+                <CheckBox
+                    android:text="Abilita principale"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:id="@+id/mainFlag"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary_light" />
             </LinearLayout>
         </LinearLayout>
 
