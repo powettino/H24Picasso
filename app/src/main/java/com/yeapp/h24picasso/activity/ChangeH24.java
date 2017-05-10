@@ -81,61 +81,10 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
-//            new AsyncTask<Void, Void, Bundle>() {
-//
-//                @Override
-//                protected Bundle doInBackground(Void... strings) {
-//                    Bundle b = new Bundle();
-//                    try {
-//                        b = WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
-//                    } catch (Exception e) {
-//                        pDiag.dismiss();
-//                    }
-//                    return b;
-//                }
-//
-//                @Override
-//                protected void onPostExecute(final Bundle s) {
-//                    if (s.getBoolean(Constants.loginResult)) {
-//                        Log.d("Background", "Loggato");
-//                        gpt = new GetPanelTask();
-//                        gpt.execute();
-//                    } else {
-//                        Log.d("Background", "Stringa " + s + ", errore");
-//                        new AlertDialog.Builder(ChangeH24.this)
-//                                .setTitle("Cannot auto-login")
-//                                .setMessage(s.getString(Constants.loginRespMessage))
-//                                .setCancelable(true)
-//                                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                                    @Override
-//                                    public void onDismiss(DialogInterface dialogInterface) {
-//                                        if (s.isEmpty() || s.getInt(Constants.loginRespCode) == 200) {
-//                                            Intent login = new Intent(getBaseContext(), Login.class);
-//                                            startActivityForResult(login, CODE_FOR_LOGIN);
-//                                        }
-//                                    }
-//                                })
-//                                .create()
-//                                .show();
-//                        pDiag.dismiss();
-//                    }
-//                }
-//            }.execute();
-
         ListView listA = (ListView) findViewById(R.id.listDays);
         da = new DayAdapter(this);
         listA.setAdapter(da);
-//        if(restoring) {
 
-//            addButton.setEnabled(currentGame.getWinner()==0);
-//            setUIStatus();
-//            if (currentGame.getNumeroMani() != 0) {
-//                resultB.setBackgroundResource(R.color.SfondoMedio);
-//                resultA.setBackgroundResource(R.color.SfondoMedio);
-//            }
-//            restoring = false;
-//        }
         String message = getIntent().getStringExtra(Constants.loginRespMessage);
         if(message!=null && !getIntent().getBooleanExtra(Constants.loginResult, false)){
             new AlertDialog.Builder(ChangeH24.this)
@@ -145,7 +94,6 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                     .setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
-//                            if (val.isEmpty() || val.getInt(Constants.loginRespCode) == 200) {
                             if (getIntent().getIntExtra(Constants.loginRespCode, 0) == 200) {
                                 Intent login = new Intent(getBaseContext(), Login.class);
                                 startActivityForResult(login, CODE_FOR_LOGIN);
@@ -167,6 +115,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
             case R.id.fab: {
                 Log.d("PANEL", "Modifico qualcosa");
                 Intent intent = new Intent(getBaseContext(), ModifyName.class);
+                intent.putExtra(Constants.firstNumber, "").putExtra(Constants.secondNumber,"");
                 startActivityForResult(intent, CODE_FOR_SAVE);
             }
             default:
@@ -187,12 +136,13 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                     pDiag.show("Saving data...", "Connecting to \"Gestionenumeroverde\"", 40000);
                     String first = data.getStringExtra(Constants.firstNumber);
                     String second = data.getStringExtra(Constants.secondNumber);
+                    String third = data.getStringExtra(Constants.thirdNumber);
                     for (int i = 0; i < Constants.Connection.ID_DAYS.length; i++) {
                         snt = new SaveNumberTask();
-                        snt.execute(first, second, String.valueOf(i + 1));
+                        snt.execute(first, second, third, String.valueOf(i + 1));
                     }
                     snt = new SaveNumberTask();
-                    snt.execute(first, second);
+                    snt.execute(second, third);
                 }
             }
             default:
@@ -206,12 +156,12 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
         @Override
         protected String doInBackground(String... params) {
             try {
-                if(params.length==3) {
+                if(params.length==4) {
                     Log.d("PANEL", "Lancio il salvataggio dei campi per giorno");
-                    WebOperation.SaveDaysNumbers(Constants.Numero.CODICES.getValue(), Constants.Numero.SUPPORTO.getValue(), params[0], params[1], Constants.Connection.ID_DAYS[Integer.parseInt(params[2])-1], params[2]);
+                    WebOperation.SaveDaysNumbers(Constants.Numero.SUPPORTO.getValue(), params[0], params[1], params[2], Constants.Connection.ID_DAYS[Integer.parseInt(params[3])-1], params[3]);
                 }else{
                     Log.d("PANEL", "Lancio il salvataggio dei campi per base");
-                    WebOperation.SaveBaseNumbers(Constants.Numero.SUPPORTO.getValue(), params[0], params[1]);
+                    WebOperation.SaveBaseNumbers(Constants.Numero.SUPPORTO.getValue(), params[1], params[2]);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

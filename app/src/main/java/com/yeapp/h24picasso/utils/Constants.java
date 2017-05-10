@@ -15,7 +15,8 @@ public class Constants {
     public static final String loginRespCode = "login_response_code";
 
     public static final String firstNumber = "firstResult";
-    public static final String secondNumber = "secondNumber";
+    public static final String secondNumber = "secondResult";
+    public static final String thirdNumber = "thirdResult";
 
     public static class Connection{
         public static final String GET_METHOD="GET";
@@ -48,6 +49,7 @@ public class Constants {
     }
 
     public enum Numero{
+        CODICES ("0503160136"),
         ANDREA ("3387085389"),
         CARMELO("3386548676"),
         DAVIDE("3402787706"),
@@ -55,7 +57,6 @@ public class Constants {
         MASSIMO("3386960076"),
         NICOLETTA("3466643068"),
         UMBERTO("3442383570"),
-        CODICES ("0503160136"),
         SUPPORTO ("supporto.picasso@codices.com");
 
         private String numero = "";

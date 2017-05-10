@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="230sp"
-    android:layout_height="330sp"
+    android:layout_height="350sp"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:layout_width="230sp"
-        android:layout_height="300dp"
+        android:layout_height="330dp"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:paddingTop="@dimen/insignificantMargin"
@@ -43,12 +43,12 @@
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
+                    android:paddingBottom="5dp"
                     android:gravity="center"
                     android:textSize="@dimen/mediumText"
-                    android:text="Numero primario"/>
+                    android:text="1 Numero"/>
                 <Spinner
-                    android:id="@+id/spinnerNome"
+                    android:id="@+id/spinnerNome1"
                     android:paddingBottom="10dp"
                     android:layout_marginBottom="15dp"
                     android:layout_gravity="center"
@@ -57,18 +57,34 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/mediumText"
+                    android:text="2 Numero"/>
+                <Spinner
+                    android:id="@+id/spinnerNome2"
                     android:paddingBottom="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:paddingBottom="5dp"
                     android:textSize="@dimen/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Numero secondario"/>
+                    android:text="3 Numero"/>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="150sp"
                     android:layout_marginBottom="15dp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content">
-                    <EditText android:id="@+id/numeroSecondario"
+                    <EditText android:id="@+id/numeroTerzo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -78,16 +94,6 @@
                         android:hint="@string/Opzionale" />
                 </android.support.design.widget.TextInputLayout>
 
-                <CheckBox
-                    android:text="Abilita principale"
-                    android:layout_marginBottom="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:id="@+id/mainFlag"
-                    android:textSize="18sp"
-                    android:textColor="@color/primary_light" />
             </LinearLayout>
         </LinearLayout>
 
