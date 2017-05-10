@@ -39,6 +39,14 @@ public class Splash extends AppCompatActivity {
                 try {
                     b = WebOperation.tryLogin(Constants.Connection.USER, Constants.Connection.PWD);
                 } catch (IOException e) {
+                    b=null;
+                }
+                return b;
+            }
+
+            @Override
+            protected void onPostExecute(Bundle s) {
+                if(s==null){
                     new AlertDialog.Builder(Splash.this)
                             .setTitle("Connection problem")
                             .setMessage("Check your connection and try to execute again")
@@ -57,20 +65,16 @@ public class Splash extends AppCompatActivity {
                             })
                             .create()
                             .show();
+                }else {
+                    Intent intent = new Intent(getBaseContext(), ChangeH24.class);
+                    if (!s.isEmpty()) {
+                        intent.putExtra(Constants.loginResult, s.getBoolean(Constants.loginResult));
+                        intent.putExtra(Constants.loginRespCode, s.getInt(Constants.loginRespCode));
+                        intent.putExtra(Constants.loginRespMessage, s.getString(Constants.loginRespMessage));
+                    }
+                    startActivity(intent);
+                    finish();
                 }
-                return b;
-            }
-
-            @Override
-            protected void onPostExecute(Bundle s) {
-                Intent intent = new Intent(getBaseContext(), ChangeH24.class);
-                if(!s.isEmpty()) {
-                    intent.putExtra(Constants.loginResult, s.getBoolean(Constants.loginResult));
-                    intent.putExtra(Constants.loginRespCode, s.getInt(Constants.loginRespCode));
-                    intent.putExtra(Constants.loginRespMessage, s.getString(Constants.loginRespMessage));
-                }
-                startActivity(intent);
-                finish();
             }
         }.execute();
     }
