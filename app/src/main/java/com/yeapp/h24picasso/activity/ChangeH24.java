@@ -136,13 +136,13 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
                     pDiag.show("Saving data...", "Connecting to \"Gestionenumeroverde\"", 40000);
                     String first = data.getStringExtra(Constants.firstNumber);
                     String second = data.getStringExtra(Constants.secondNumber);
-                    String third = data.getStringExtra(Constants.thirdNumber);
+                    String main = data.getStringExtra(Constants.mainNumber);
                     for (int i = 0; i < Constants.Connection.ID_DAYS.length; i++) {
                         snt = new SaveNumberTask();
-                        snt.execute(first, second, third, String.valueOf(i + 1));
+                        snt.execute(main, first, second, String.valueOf(i + 1));
                     }
                     snt = new SaveNumberTask();
-                    snt.execute(second, third);
+                    snt.execute(first,second);
                 }
             }
             default:
@@ -158,10 +158,10 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
             try {
                 if(params.length==4) {
                     Log.d("PANEL", "Lancio il salvataggio dei campi per giorno");
-                    WebOperation.SaveDaysNumbers(Constants.Numero.SUPPORTO.getValue(), params[0], params[1], params[2], Constants.Connection.ID_DAYS[Integer.parseInt(params[3])-1], params[3]);
+                    WebOperation.SaveDaysNumbers(Constants.Numero.SUPPORTO.getValue(), Boolean.parseBoolean(params[0]), params[1], params[2], Constants.Connection.ID_DAYS[Integer.parseInt(params[3])-1], params[3]);
                 }else{
-                    Log.d("PANEL", "Lancio il salvataggio dei campi per base");
-                    WebOperation.SaveBaseNumbers(Constants.Numero.SUPPORTO.getValue(), params[1], params[2]);
+                    Log.d("PANEL", "Lancio il salvataggio dei campi per base: ");
+                    WebOperation.SaveBaseNumbers(Constants.Numero.SUPPORTO.getValue(),params[0], params[1]);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

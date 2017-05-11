@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="230sp"
-    android:layout_height="350sp"
+    android:layout_height="300sp"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:layout_width="230sp"
-        android:layout_height="330dp"
+        android:layout_height="280dp"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:paddingTop="@dimen/insignificantMargin"
@@ -39,22 +39,58 @@
                 android:paddingTop="10dp"
 
                 android:orientation="vertical">
-                <TextView
-                    android:layout_gravity="center"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:gravity="center"
-                    android:textSize="@dimen/mediumText"
-                    android:text="1 Numero"/>
-                <Spinner
-                    android:id="@+id/spinnerNome1"
                     android:paddingBottom="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:paddingBottom="5dp"
+                            android:gravity="center"
+                            android:textSize="@dimen/mediumText"
+                            android:text="1 Numero"/>
+                        <Spinner
+                            android:id="@+id/spinnerNome1"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="25dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.15"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:gravity="center"
+                            android:textSize="@dimen/smallText"
+                            android:text=""/>
+                        <CheckBox
+                            android:id="@+id/mainBox"
+                            android:paddingBottom="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
                 <TextView
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
@@ -63,28 +99,28 @@
                     android:gravity="center"
                     android:textSize="@dimen/mediumText"
                     android:text="2 Numero"/>
-                <Spinner
-                    android:id="@+id/spinnerNome2"
-                    android:paddingBottom="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_gravity="center"
-                    android:paddingBottom="5dp"
-                    android:textSize="@dimen/mediumText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="3 Numero"/>
+                <!--<Spinner-->
+                    <!--android:id="@+id/spinnerNome2"-->
+                    <!--android:paddingBottom="10dp"-->
+                    <!--android:layout_marginBottom="15dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"/>-->
+                <!--<TextView-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:paddingBottom="5dp"-->
+                    <!--android:textSize="@dimen/mediumText"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="3 Numero"/>-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="150sp"
                     android:layout_marginBottom="15dp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content">
-                    <EditText android:id="@+id/numeroTerzo"
+                    <EditText android:id="@+id/numeroSecondo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

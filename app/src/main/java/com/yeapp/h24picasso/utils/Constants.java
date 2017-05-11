@@ -16,7 +16,7 @@ public class Constants {
 
     public static final String firstNumber = "firstResult";
     public static final String secondNumber = "secondResult";
-    public static final String thirdNumber = "thirdResult";
+    public static final String mainNumber = "mainNumber";
 
     public static class Connection{
         public static final String GET_METHOD="GET";

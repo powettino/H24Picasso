@@ -126,11 +126,11 @@ public class WebOperation {
         Log.d("WEB", "Completo SAVE giorno base con risultato: " + sb.toString());
     }
 
-    public static void SaveDaysNumbers(String email, String firstNumber, String secondNumber, String thirdNumber, String id_day, String prog_day) throws Exception{
-        String postData = Constants.Connection.POST_SAVE_DAYS.replace("$numero1", firstNumber)
+    public static void SaveDaysNumbers(String email,boolean main, String firstNumber, String secondNumber, String id_day, String prog_day) throws Exception{
+        String postData = Constants.Connection.POST_SAVE_DAYS.replace("$numero1", main ? firstNumber : Constants.Numero.CODICES.getValue())
                 .replace("$email", email)
-                .replace("$numero2", secondNumber)
-                .replace("$numero3", thirdNumber)
+                .replace("$numero2", main ? secondNumber : firstNumber)
+                .replace("$numero3", main ? "" : secondNumber)
                 .replace("$id_fascia", id_day)
                 .replace("$num_giorno", prog_day);
 
