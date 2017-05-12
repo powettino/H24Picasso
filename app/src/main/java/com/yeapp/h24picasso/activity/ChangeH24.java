@@ -115,7 +115,7 @@ public class ChangeH24 extends AppCompatActivity implements View.OnClickListener
             case R.id.fab: {
                 Log.d("PANEL", "Modifico qualcosa");
                 Intent intent = new Intent(getBaseContext(), ModifyName.class);
-                intent.putExtra(Constants.firstNumber, "").putExtra(Constants.secondNumber,"");
+                intent.putExtra(Constants.firstNumber, baseNum1.getText()).putExtra(Constants.secondNumber,"");
                 startActivityForResult(intent, CODE_FOR_SAVE);
             }
             default:

@@ -50,7 +50,7 @@ public class ModifyName extends AppCompatActivity implements View.OnClickListene
         List<String> spinnerArray = new ArrayList<String>();
         for( Constants.Numero r : Constants.Numero.values()){
             spinnerArray.add(r.toString());
-            Log.d("MODIFICA", r.toString());
+            Log.d("MODIFY", r.toString());
         }
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
@@ -63,8 +63,11 @@ public class ModifyName extends AppCompatActivity implements View.OnClickListene
 
 //        spinner2.setAdapter(adapter2);
         spinner1.setAdapter(adapter1);
+        String primo = getIntent().getStringExtra(Constants.firstNumber);
+        Log.d("MODIFY", "Posizione recuperata prima della modifica: "+Constants.Numero.valueOf(primo).ordinal() + (
+                (primo!=null && !primo.equals("")) ? Constants.Numero.valueOf(primo).ordinal() : 0));
+        spinner1.setSelection((primo!=null && !primo.equals("")) ? Constants.Numero.valueOf(primo).ordinal() : 0);
 
-        spinner1.setSelection(0);
 //        spinner2.setSelection(1);
     }
 
