@@ -2,6 +2,7 @@ package com.yeapp.h24picasso.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,26 +65,41 @@ public class Login extends Activity implements View.OnClickListener {
                 try {
                     b = WebOperation.tryLogin(strings[0], strings[1]);
                 } catch (Exception e) {
-                    pDiag.dismiss();
+                    b=null;
                 }
                 return b;
             }
 
             @Override
             protected void onPostExecute(final Bundle s) {
-                pDiag.dismiss();
-                if (s.getBoolean(Constants.loginResult)) {
-                    Log.d("Background", "Loggato");
-                    onLoginSuccess();
-                } else {
-                    _loginButton.setEnabled(true);
-                    Log.d("Background", "Stringa " + s + ", errore");
+                if(s==null) {
+                    pDiag.dismiss();
                     new AlertDialog.Builder(Login.this)
-                            .setTitle("Login Error")
-                            .setMessage(s.getString(Constants.loginRespMessage))
-                            .setCancelable(true)
+                            .setTitle("Connection problem")
+                            .setMessage("Check your connection and try to execute again")
+                            .setCancelable(false)
+                            .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
                             .create()
                             .show();
+                }else {
+                    pDiag.dismiss();
+                    if (s.getBoolean(Constants.loginResult)) {
+                        Log.d("Background", "Loggato");
+                        onLoginSuccess();
+                    } else {
+                        _loginButton.setEnabled(true);
+                        Log.d("Background", "Stringa " + s + ", errore");
+                        new AlertDialog.Builder(Login.this)
+                                .setTitle("Login Error")
+                                .setMessage(s.getString(Constants.loginRespMessage))
+                                .setCancelable(true)
+                                .create()
+                                .show();
+                    }
                 }
             }
         }.execute(user, password);
