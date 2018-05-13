@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.yeapp.h24picasso"
         minSdkVersion 17
@@ -17,14 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
             applicationVariants.all { variant ->
-                variant.outputs.each { output ->
+                variant.outputs.all { output ->
                     project.ext { appName = 'H24Picasso' }
                     def formattedDate = new Date().format('yyyy-MM-dd_HH.mm.ss')
-                    def newName = output.outputFile.name
+                    def newName = outputFileName
                     newName = newName.replace("app-", "$project.ext.appName-") //"MyAppName" -> I set my app variables in the root project
                     newName = newName.replace("-release", "-release-" + formattedDate)
                     //noinspection GroovyAssignabilityCheck
-                    output.outputFile = new File(output.outputFile.parent, newName)
+                    //output.outputFileName = new File(output.outputFile.parent, newName)
+                    outputFileName = new File("release", newName)
                 }
             }
         }
@@ -38,12 +39,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:23.3.0'
-    testCompile 'junit:junit:4.12'
-    compile files('libs/jsoup-1.10.2.jar')
+    implementation 'com.android.support:design:23.3.0'
+    testImplementation 'junit:junit:4.12'
+    implementation files('libs/jsoup-1.10.2.jar')
 }
