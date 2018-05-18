@@ -1,5 +1,18 @@
 apply plugin: 'com.android.application'
 
+allprojects {
+    repositories {
+        google()
+
+        // If you're using a version of Gradle lower than 4.1, you must
+        // instead use:
+        //
+        // maven {
+        //     url 'https://maven.google.com'
+        // }
+    }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion '27.0.3'
@@ -43,8 +56,8 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //    compile 'com.android.support:appcompat-v7:25.1.0'
-    implementation 'com.android.support:design:23.3.0'
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.android.support:design:23.4.0'
     testImplementation 'junit:junit:4.12'
     implementation files('libs/jsoup-1.10.2.jar')
 }
