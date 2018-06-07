@@ -23,10 +23,10 @@ public class Constants {
         public static final String POST_METHOD="POST";
         public static final String USER ="800858446";
         public static final String PWD ="m4j3i9r9";
-        public static final String CONNECTION_URL ="http://www.gestionenumeroverde.it/np_pub/login.php";
-        public static final String SAVE_DAYS_URL="http://www.gestionenumeroverde.it/np_pub/mod_fasce2.php";
-        public static final String SAVE_BASE_URL="http://www.gestionenumeroverde.it/np_pub/mod_base2.php";
-        public static final String PANEL_URL="http://www.gestionenumeroverde.it/np_pub/home.php";
+        public static final String CONNECTION_URL ="https://www.gestionenumeroverde.it/np_pub/login.php";
+        public static final String SAVE_DAYS_URL="https://www.gestionenumeroverde.it/np_pub/mod_fasce2.php";
+        public static final String SAVE_BASE_URL="https://www.gestionenumeroverde.it/np_pub/mod_base2.php";
+        public static final String PANEL_URL="https://www.gestionenumeroverde.it/np_pub/home.php";
         public static String POST_LOGIN = "login=@USER@&pass=@PASS@&tipo=0&button=Entra";
         public static String POST_SAVE_DAYS="pref_internaz=0039&terminazione1=$numero1&pref_internaz=0039&terminazione2=$numero2" +
                 "&pref_internaz=0039&terminazione3=$numero3&pref_internaz=0039&terminazione4=&pref_internaz=0039" +
